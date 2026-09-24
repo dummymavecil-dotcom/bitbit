@@ -1,0 +1,187 @@
+/* Bitbit design tokens — generated from the Bitbit design system. Light theme. */
+/* Load Inter: https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..700&display=swap */
+:root {
+  /* Color — primitives */
+  --blue-100: #e5f2ff;
+  --blue-200: #cce6ff;
+  --blue-300: #b8dbff;
+  --blue-500: #0084ff;
+  --blue-600: #0070d9;
+  --blue-700: #005bb5;
+  --cyan-50: #f4fdfd;
+  --cyan-100: #dcfbfa;
+  --cyan-200: #c4f6f5;
+  --cyan-400: #01dfdc;
+  --cyan-600: #009996;
+  --cyan-700: #00706e;
+  --cyan-800: #00504f;
+  --yellow-100: #fff6cc;
+  --yellow-400: #fdd101;
+  --yellow-500: #c9a700;
+  --yellow-600: #a07f00;
+  --yellow-700: #6b5400;
+  --yellow-800: #4d3c00;
+  --pink-100: #ffe8f1;
+  --pink-300: #fd8fb9;
+  --pink-600: #d6336f;
+  --pink-700: #a3164f;
+  --neutral-0: #ffffff;
+  --neutral-50: #f4f7fb;
+  --neutral-100: #e8edf5;
+  --neutral-150: #e3e9f2;
+  --neutral-200: #d3dbe7;
+  --neutral-300: #c8d3e3;
+  --neutral-400: #9aa7ba;
+  --neutral-450: #7c8aa0;
+  --neutral-500: #5e6b80;
+  --neutral-600: #4a5a73;
+  --neutral-700: #33435c;
+  --inverse-300: #c9d3e1;
+  --neutral-900: #0b1b33;
+
+  /* Color — roles */
+  --color-primary: var(--blue-500);
+  --color-primary-action: var(--blue-600);
+  --color-primary-pressed: var(--blue-700);
+  --color-primary-subtle: var(--blue-100);
+  --color-secondary: var(--cyan-400);
+  --color-secondary-strong: var(--cyan-600);
+  --color-secondary-subtle: var(--cyan-100);
+  --color-accent-yellow: var(--yellow-400);
+  --color-accent-pink: var(--pink-300);
+  --success: var(--cyan-700);
+  --success-bg: var(--cyan-100);
+  --success-fill: var(--cyan-400);
+  --warning: var(--yellow-700);
+  --warning-bg: var(--yellow-100);
+  --warning-border: var(--yellow-600);
+  --error: var(--pink-700);
+  --error-bg: var(--pink-100);
+  --error-border: var(--pink-300);
+  --error-strong: var(--pink-600);
+  --info: var(--blue-700);
+  --info-bg: var(--blue-100);
+  --info-border: var(--blue-500);
+  --bg: var(--neutral-50);
+  --surface: var(--neutral-0);
+  --surface-raised: var(--neutral-0);
+  --surface-sunken: var(--neutral-100);
+  --surface-brand: var(--blue-600);
+  --surface-inverse: var(--neutral-900);
+  --overlay-scrim: rgba(11, 27, 51, 0.56);
+  --overlay-on-brand: rgba(0, 0, 0, 0.2);
+  --overlay-on-inverse: rgba(255, 255, 255, 0.14);
+  --border-subtle: var(--neutral-150);
+  --border-default: var(--neutral-300);
+  --border-strong: var(--neutral-450);
+  --border-selected: var(--blue-500);
+  --border-focus: var(--blue-600);
+  --text-primary: var(--neutral-900);
+  --text-secondary: var(--neutral-600);
+  --text-tertiary: var(--neutral-500);
+  --text-disabled: var(--neutral-400);
+  --text-inverse: var(--neutral-0);
+  --text-inverse-secondary: var(--inverse-300);
+  --text-link: var(--blue-700);
+  --text-on-brand: var(--neutral-0);
+  --text-on-secondary: var(--neutral-900);
+  --text-on-accent: var(--neutral-900);
+
+  /* Typography */
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --type-display: 700 28px/34px var(--font-sans);
+  --type-display-tracking: -0.02em;
+  --type-title-1: 700 22px/28px var(--font-sans);
+  --type-title-1-tracking: -0.01em;
+  --type-title-2: 700 20px/26px var(--font-sans);
+  --type-title-2-tracking: -0.01em;
+  --type-headline: 700 18px/24px var(--font-sans);
+  --type-title-3: 700 17px/22px var(--font-sans);
+  --type-label-lg: 700 16px/20px var(--font-sans);
+  --type-body-strong: 700 15px/20px var(--font-sans);
+  --type-body: 400 14px/20px var(--font-sans);
+  --type-body-sm: 400 13px/18px var(--font-sans);
+  --type-caption: 600 12px/16px var(--font-sans);
+  --type-overline: 700 12px/16px var(--font-sans);
+  --type-overline-tracking: 0.08em;
+  --type-print-title: 800 30px/36px var(--font-sans);
+  --type-print-title-tracking: -0.02em;
+  --type-print-allergy: 800 18px/24px var(--font-sans);
+  --type-print-body: 700 16px/22px var(--font-sans);
+  --type-print-detail: 400 13px/18px var(--font-sans);
+  --type-print-section: 800 13px/16px var(--font-sans);
+  --type-print-section-tracking: 0.08em;
+  --type-print-meta: 400 12px/16px var(--font-sans);
+
+  /* Spacing */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-14: 14px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-56: 56px;
+  --screen-margin-x: 20px;
+  --screen-inset-top: 56px;
+  --section-gap: 16px;
+  --card-padding: 16px;
+  --card-padding-compact: 14px;
+  --card-padding-hero: 20px;
+  --grid-gap: 12px;
+  --list-gap: 10px;
+  --inline-gap: 8px;
+
+  /* Radius */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* Elevation */
+  --elevation-0: none;
+  --elevation-1: 0 1px 3px rgba(11, 27, 51, 0.12);
+  --elevation-2: 0 -8px 24px rgba(11, 27, 51, 0.12);
+  --elevation-brand: 0 8px 20px rgba(0, 112, 217, 0.35);
+  --elevation-illustration: 0 18px 40px rgba(0, 0, 0, 0.45);
+  --focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px #0070d9;
+
+  /* Size */
+  --touch-target: 44px;
+  --button-height-lg: 56px;
+  --button-height-md: 52px;
+  --control-height: 48px;
+  --chip-height: 44px;
+  --segment-height: 40px;
+  --icon-button: 44px;
+  --icon-sm: 14px;
+  --icon-md: 18px;
+  --icon-lg: 22px;
+  --icon-disc: 36px;
+  --tab-bar-height: 84px;
+  --fab-size: 62px;
+}
+
+.text-display { font: var(--type-display); letter-spacing: -0.02em; }
+.text-title-1 { font: var(--type-title-1); letter-spacing: -0.01em; }
+.text-title-2 { font: var(--type-title-2); letter-spacing: -0.01em; }
+.text-headline { font: var(--type-headline); }
+.text-title-3 { font: var(--type-title-3); }
+.text-label-lg { font: var(--type-label-lg); }
+.text-body-strong { font: var(--type-body-strong); }
+.text-body { font: var(--type-body); }
+.text-body-sm { font: var(--type-body-sm); }
+.text-caption { font: var(--type-caption); }
+.text-overline { font: var(--type-overline); letter-spacing: 0.08em; text-transform: uppercase; }
+.text-print-title { font: var(--type-print-title); letter-spacing: -0.02em; }
+.text-print-allergy { font: var(--type-print-allergy); }
+.text-print-body { font: var(--type-print-body); }
+.text-print-detail { font: var(--type-print-detail); }
+.text-print-section { font: var(--type-print-section); letter-spacing: 0.08em; text-transform: uppercase; }
+.text-print-meta { font: var(--type-print-meta); }
