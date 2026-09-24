@@ -156,6 +156,31 @@ Default to flat. Separate cards with `border-subtle`; add a shadow only to somet
 | `elevation-illustration` | 0 18px 40px rgba(0, 0, 0, 0.45) | Objects in the camera view; not UI |
 | `focus-ring` | 0 0 0 2px #ffffff, 0 0 0 4px #0070d9 | *Proposed.* Keyboard focus on every control |
 
+## Motion
+
+Motion should feel smooth and calm, never bouncy: this is a medical record, used by someone who may be unwell. Motion confirms that something happened and shows where things came from; it never decorates.
+
+| Token | Value | Use |
+| --- | --- | --- |
+| `duration-instant` | 80ms | Touch-down feedback: pressed colour and `scale-pressed` |
+| `duration-fast` | 140ms | Colour, border and focus-ring changes on controls |
+| `duration-base` | 220ms | Selection changes: chips, segments, toggles |
+| `duration-moderate` | 320ms | Content entering or moving: rows, confirmation cards, tab content |
+| `duration-slow` | 440ms | Bottom sheets and full-screen transitions entering |
+| `duration-exit` | 200ms | Anything leaving. Exits are always faster than entrances. |
+| `duration-pulse` | 2400ms | One loop of the tap-to-share pulse |
+| `ease-standard` | cubic-bezier(0.2, 0, 0, 1) | State changes on things that stay on screen |
+| `ease-enter` | cubic-bezier(0.16, 1, 0.3, 1) | Entrances: a long, soft settle with no overshoot |
+| `ease-exit` | cubic-bezier(0.4, 0, 1, 1) | Exits: accelerate away |
+| `ease-in-out` | cubic-bezier(0.65, 0, 0.35, 1) | Loops: the share pulse |
+| `scale-pressed` | 0.98 | Buttons, tiles and cards while pressed |
+
+- Use the composites in code: `--transition-control` (buttons, chips, segments), `--transition-surface` (cards, tiles), `--transition-enter`, `--transition-sheet` and `--transition-exit`. The component CSS already applies them; `.bb-enter`, `.bb-sheet-enter` and `.bb-pulse` / `.bb-pulse-delayed` are ready-made animations.
+- Animate only `opacity`, `transform` and colours. Never animate height, width or layout.
+- New content enters with a fade plus an 8px rise (`.bb-enter`). Stagger list rows by 40ms, up to 6 rows.
+- Never animate the Allergies card in or out of view: allergies are on screen from the first frame.
+- Under `prefers-reduced-motion: reduce`, every duration becomes 0ms, `scale-pressed` becomes 1 and the pulse stops at 35% opacity. States still change; they just don't move.
+
 ## Iconography and logos
 
 - Icons are 24px-grid line icons with a 2px stroke and round caps and joins, drawn in `currentColor` (`Bitbit.Icon`). The set follows Lucide's geometry; in the app, use `lucide-react` and keep the names mapped in `index.d.ts`.

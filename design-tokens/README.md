@@ -9,3 +9,5 @@ Components should read role tokens (`--text-secondary`, `--surface-brand`, `--bo
 
 Load Inter from Google Fonts:
 `https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..700&display=swap`
+
+Motion tokens (`--duration-*`, `--ease-*`, `--scale-*`, `--transition-*`) follow the rule "smooth, calm, no bounce". Under `prefers-reduced-motion: reduce`, every duration drops to 0ms and `--scale-pressed` becomes 1.

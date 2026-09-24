@@ -166,6 +166,47 @@
   --icon-disc: 36px;
   --tab-bar-height: 84px;
   --fab-size: 62px;
+
+  /* Motion: duration */
+  --duration-instant: 80ms;
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-moderate: 320ms;
+  --duration-slow: 440ms;
+  --duration-exit: 200ms;
+  --duration-pulse: 2400ms;
+
+  /* Motion: easing */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Motion: scale */
+  --scale-pressed: 0.98;
+  --scale-pulse-from: 0.7;
+  --scale-pulse-to: 1.35;
+
+  /* Motion: transitions */
+  --transition-control: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard), transform var(--duration-instant) var(--ease-standard);
+  --transition-surface: background-color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard), transform var(--duration-instant) var(--ease-standard);
+  --transition-enter: opacity var(--duration-moderate) var(--ease-enter), transform var(--duration-moderate) var(--ease-enter);
+  --transition-sheet: transform var(--duration-slow) var(--ease-enter);
+  --transition-exit: opacity var(--duration-exit) var(--ease-exit), transform var(--duration-exit) var(--ease-exit);
+}
+
+/* Reduced motion: keep every state change, drop the movement. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-moderate: 0ms;
+    --duration-slow: 0ms;
+    --duration-exit: 0ms;
+    --duration-pulse: 0ms;
+    --scale-pressed: 1;
+  }
 }
 
 .text-display { font: var(--type-display); letter-spacing: -0.02em; }

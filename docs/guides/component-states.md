@@ -41,4 +41,15 @@ Every interactive component has the same four states. The screens only showed de
 
 ## Motion
 
-Pressed states apply immediately, with no transition. The only animation in the product is the tap-to-share pulse: two `blue-200` rings scaling 0.7 → 1.35 over 2.4s, offset by 1.2s. Under `prefers-reduced-motion: reduce`, stop it and show the rings at 35% opacity.
+| Moment | Tokens |
+| --- | --- |
+| Press (touch-down) | colour change + `transform: scale(var(--scale-pressed))` over `duration-instant`, `ease-standard` |
+| Hover, focus ring, colour | `--transition-control`: `duration-fast`, `ease-standard` |
+| Select / toggle (chip, segment, checkbox) | `duration-base`, `ease-standard` |
+| Card or tile state | `--transition-surface`: `duration-base`, `ease-standard` |
+| Content appears (row, banner, confirmation) | `.bb-enter`: fade + 8px rise, `duration-moderate`, `ease-enter` |
+| Bottom sheet opens | `.bb-sheet-enter`: slide up, `duration-slow`, `ease-enter` |
+| Anything leaves | `--transition-exit`: `duration-exit`, `ease-exit` |
+| Tap-to-share pulse | `.bb-pulse` + `.bb-pulse-delayed`: `blue-200` rings, `scale-pulse-from` → `scale-pulse-to` over `duration-pulse`, `ease-in-out`, offset by half a loop |
+
+Under `prefers-reduced-motion: reduce`, durations drop to 0ms, pressed scale drops to 1 and the pulse rings stop at 35% opacity.

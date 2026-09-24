@@ -19,6 +19,10 @@ Bitbit is a medical record the patient owns and carries: phone screens 390px wid
 - Meaning: `--info` / `--info-bg` (Verified, blue), `--warning` / `--warning-bg` (Self-input, yellow), `--error` / `--error-bg` (allergies and revoke, pink), `--success` / `--success-bg` (cyan).
 - Spacing: `--space-4` … `--space-24`, `--grid-gap`, `--list-gap`, `--card-padding`. Radius: `--radius-md` 14, `--radius-lg` 20, `--radius-xl` 24, `--radius-2xl` 28, `--radius-full`. Shadows: `--elevation-1`, `--elevation-brand`, `--focus-ring`.
 
+## Motion (smooth, no bounce)
+- Components already animate press, focus and selection. For your own glue, use `transition: var(--transition-enter)` or add `className="bb-enter"` to content that appears, `bb-sheet-enter` on a bottom sheet, and `bb-pulse` / `bb-pulse-delayed` on the share rings.
+- Durations: `--duration-fast` 140ms, `--duration-base` 220ms, `--duration-moderate` 320ms, `--duration-slow` 440ms, `--duration-exit` 200ms. Easing: `--ease-standard`, `--ease-enter`, `--ease-exit`. Animate only opacity, transform and colour. Never animate the Allergies card.
+
 ## Rules the agent must keep
 - Allergies come first on any record screen, in `Card variant="allergy"`. Pink (`--error*`) means allergies or destructive actions only; yellow (`--warning*`) means Self-input only.
 - Every record shows a `Tag`. Values are facts with reference ranges, never advice ("High", "Normal", tips).

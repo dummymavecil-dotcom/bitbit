@@ -122,3 +122,28 @@ html, body { font-family: var(--font-sans); color: var(--text-primary); backgrou
 
 /* Family lock for every component (after the component rules, so it wins over `font: inherit`). */
 .bb-btn, .bb-qa, .bb-iconbtn, .bb-chip, .bb-tag, .bb-seg, .bb-seg-btn, .bb-card, .bb-tile, .bb-row { font-family: var(--font-sans); }
+
+/* Motion: smooth, calm, no bounce. Every value comes from the motion tokens, which drop to 0ms under prefers-reduced-motion. */
+.bb-btn, .bb-qa, .bb-iconbtn, .bb-chip, .bb-seg-btn, .bb-check { transition: var(--transition-control); }
+.bb-card-interactive, .bb-tile { transition: var(--transition-surface); }
+/* Selection (chips, segments, checkboxes) settles a little slower than press feedback. */
+.bb-chip, .bb-seg-btn, .bb-check { transition-duration: var(--duration-base), var(--duration-base), var(--duration-base), var(--duration-base), var(--duration-instant); }
+.bb-btn:active:not(:disabled), .bb-btn.is-pressed,
+.bb-qa:active:not(:disabled), .bb-qa.is-pressed,
+.bb-iconbtn:active:not(:disabled), .bb-iconbtn.is-pressed,
+.bb-chip:active:not(:disabled), .bb-chip.is-pressed,
+.bb-tile:active, .bb-tile.is-pressed,
+.bb-card-interactive:active, .bb-card-interactive.is-pressed { transform: scale(var(--scale-pressed)); }
+/* Entering content: add .bb-enter to anything that appears (list rows, confirmation cards, banners). */
+@keyframes bb-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.bb-enter { animation: bb-enter var(--duration-moderate) var(--ease-enter) both; }
+/* Bottom sheets slide up from the edge. */
+@keyframes bb-sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+.bb-sheet-enter { animation: bb-sheet-in var(--duration-slow) var(--ease-enter) both; }
+/* The tap-to-share pulse: two rings, offset by half a loop. */
+@keyframes bb-pulse { from { transform: scale(var(--scale-pulse-from)); opacity: 0.9; } to { transform: scale(var(--scale-pulse-to)); opacity: 0; } }
+.bb-pulse { animation: bb-pulse var(--duration-pulse) var(--ease-in-out) infinite; }
+.bb-pulse-delayed { animation: bb-pulse var(--duration-pulse) var(--ease-in-out) calc(var(--duration-pulse) / 2) infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .bb-pulse, .bb-pulse-delayed { animation: none; opacity: 0.35; }
+}
