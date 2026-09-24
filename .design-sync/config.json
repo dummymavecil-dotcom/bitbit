@@ -1,0 +1,35 @@
+{
+  "shape": "package",
+  "pkg": "@bitbit/ui",
+  "globalName": "Bitbit",
+  "buildCmd": "npm run build",
+  "cssEntry": "dist/styles.css",
+  "docsDir": "docs/components",
+  "overrides": {
+    "Button": {
+      "cardMode": "column"
+    },
+    "QuickAction": {
+      "cardMode": "column"
+    },
+    "Card": {
+      "cardMode": "column"
+    },
+    "RecordRow": {
+      "cardMode": "column"
+    },
+    "Icon": {
+      "cardMode": "column"
+    },
+    "CategoryTile": {
+      "cardMode": "column"
+    },
+    "Chip": {
+      "cardMode": "column"
+    },
+    "Tag": {
+      "cardMode": "column"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

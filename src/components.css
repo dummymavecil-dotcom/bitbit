@@ -1,0 +1,124 @@
+/* Bitbit components. Every value is a token from tokens.css. `.is-pressed` / `.is-focused` mirror :active / :focus-visible so previews can pin a state. */
+/* Base: the app ground and type. Components also set the family themselves so they stay on-brand inside any host. */
+html, body { font-family: var(--font-sans); color: var(--text-primary); background: var(--bg); -webkit-font-smoothing: antialiased; }
+
+/* Button */
+.bb-btn { font: inherit; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8); min-height: var(--button-height-md); padding: 0 var(--space-20); border-radius: var(--radius-lg); border: 1.5px solid transparent; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; text-decoration: none; box-sizing: border-box; }
+.bb-btn svg { width: var(--icon-md); height: var(--icon-md); flex-shrink: 0; }
+.bb-btn-lg { min-height: var(--button-height-lg); font-size: 16px; font-weight: 700; }
+.bb-btn-block { width: 100%; }
+.bb-btn-primary { background: var(--color-primary-action); color: var(--text-on-brand); }
+.bb-btn-primary:active, .bb-btn-primary.is-pressed { background: var(--color-primary-pressed); }
+.bb-btn-secondary { background: var(--surface); color: var(--text-primary); border-color: var(--border-strong); }
+.bb-btn-secondary:active, .bb-btn-secondary.is-pressed { background: var(--surface-sunken); }
+.bb-btn-danger { background: var(--error-bg); color: var(--error); border-color: var(--error); font-weight: 700; }
+.bb-btn-danger:active, .bb-btn-danger.is-pressed { background: var(--error); color: var(--text-inverse); }
+.bb-btn:focus-visible, .bb-btn.is-focused { outline: none; box-shadow: var(--focus-ring); }
+.bb-btn:disabled, .bb-btn[aria-disabled="true"] { background: var(--surface-sunken); color: var(--text-disabled); border-color: transparent; cursor: not-allowed; box-shadow: none; }
+
+/* Quick action (Home) */
+.bb-qa { font: inherit; display: flex; align-items: center; gap: var(--space-10); min-height: 64px; padding: var(--space-12) var(--space-14); border-radius: var(--radius-lg); border: none; text-align: left; cursor: pointer; text-decoration: none; box-sizing: border-box; }
+.bb-qa-icon { width: var(--icon-disc); height: var(--icon-disc); flex-shrink: 0; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; }
+.bb-qa-icon svg { width: 20px; height: 20px; }
+.bb-qa-text { display: flex; flex-direction: column; gap: 1px; }
+.bb-qa-title { font-size: 15px; line-height: 20px; font-weight: 700; }
+.bb-qa-sub { font-size: 12px; line-height: 16px; font-weight: 500; }
+.bb-qa-primary { background: var(--color-primary-action); color: var(--text-on-brand); }
+.bb-qa-primary .bb-qa-icon { background: rgba(255, 255, 255, 0.18); }
+.bb-qa-primary:active, .bb-qa-primary.is-pressed { background: var(--color-primary-pressed); }
+.bb-qa-secondary { background: var(--color-secondary); color: var(--text-on-secondary); }
+.bb-qa-secondary .bb-qa-icon { background: rgba(255, 255, 255, 0.55); }
+.bb-qa-secondary:active, .bb-qa-secondary.is-pressed { background: var(--color-secondary-strong); }
+.bb-qa:focus-visible, .bb-qa.is-focused { outline: none; box-shadow: var(--focus-ring); }
+.bb-qa:disabled { background: var(--surface-sunken); color: var(--text-disabled); cursor: not-allowed; }
+.bb-qa:disabled .bb-qa-icon { background: var(--surface); }
+
+/* Icon button */
+.bb-iconbtn { width: var(--icon-button); height: var(--icon-button); box-sizing: border-box; border-radius: var(--radius-full); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; position: relative; padding: 0; }
+.bb-iconbtn svg { width: 20px; height: 20px; }
+.bb-iconbtn-surface { background: var(--surface); color: var(--text-primary); border: 1px solid var(--border-subtle); }
+.bb-iconbtn-surface:active, .bb-iconbtn-surface.is-pressed { background: var(--surface-sunken); }
+.bb-iconbtn-inverse { background: var(--overlay-on-inverse); color: var(--text-inverse); border: none; }
+.bb-iconbtn-inverse:active, .bb-iconbtn-inverse.is-pressed { background: rgba(255, 255, 255, 0.28); }
+.bb-iconbtn:focus-visible, .bb-iconbtn.is-focused { outline: none; box-shadow: var(--focus-ring); }
+.bb-iconbtn:disabled { color: var(--text-disabled); cursor: not-allowed; }
+.bb-iconbtn-dot { position: absolute; top: 9px; right: 10px; width: 10px; height: 10px; box-sizing: border-box; border-radius: var(--radius-full); background: var(--error-strong); border: 2px solid var(--surface); }
+
+/* Chip — filter (pill), choice (rounded rect), toggle (checkbox) */
+.bb-chip { font: inherit; display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--chip-height); padding: 0 var(--space-16); box-sizing: border-box; border: 1.5px solid var(--border-strong); background: var(--surface); color: var(--text-primary); font-size: 14px; line-height: 20px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+.bb-chip-filter { border-radius: var(--radius-full); }
+.bb-chip-choice { border-radius: var(--radius-md); justify-content: center; }
+.bb-chip-toggle { border-radius: var(--radius-md); padding: 0 var(--space-12); min-height: 46px; }
+.bb-chip:active, .bb-chip.is-pressed { background: var(--surface-sunken); }
+.bb-chip[aria-pressed="true"].bb-chip-filter, .bb-chip[aria-selected="true"].bb-chip-filter, .bb-chip[aria-pressed="true"].bb-chip-choice { background: var(--color-primary-action); border-color: var(--color-primary-action); color: var(--text-on-brand); }
+.bb-chip[aria-pressed="true"].bb-chip-filter.is-pressed, .bb-chip[aria-pressed="true"].bb-chip-choice.is-pressed { background: var(--color-primary-pressed); border-color: var(--color-primary-pressed); }
+.bb-chip[aria-pressed="true"].bb-chip-toggle { background: var(--color-primary-subtle); border-color: var(--border-selected); }
+.bb-chip[aria-pressed="true"].bb-chip-toggle.is-pressed { background: var(--blue-200); }
+.bb-chip:focus-visible, .bb-chip.is-focused { outline: none; box-shadow: var(--focus-ring); }
+.bb-chip:disabled { background: var(--surface-sunken); border-color: transparent; color: var(--text-disabled); cursor: not-allowed; }
+.bb-check { width: 20px; height: 20px; flex-shrink: 0; box-sizing: border-box; border-radius: var(--radius-xs); border: 1.5px solid var(--border-strong); background: var(--surface); color: var(--text-on-brand); display: inline-flex; align-items: center; justify-content: center; }
+.bb-check svg { width: 14px; height: 14px; }
+[aria-pressed="true"] > .bb-check { background: var(--color-primary-action); border-color: var(--color-primary-action); }
+.bb-chip:disabled .bb-check { border-color: var(--text-disabled); background: transparent; }
+
+/* Tag */
+.bb-tag { display: inline-flex; align-items: center; gap: var(--space-4); border-radius: var(--radius-full); padding: 3px var(--space-8); font-size: 12px; line-height: 16px; font-weight: 700; white-space: nowrap; }
+.bb-tag svg { width: 12px; height: 12px; }
+.bb-tag-verified { background: var(--info-bg); color: var(--info); border: 1px solid var(--info-border); }
+.bb-tag-self { background: var(--warning-bg); color: var(--warning); border: 1px dashed var(--warning-border); }
+
+/* Segmented control */
+.bb-seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-md); background: var(--surface-sunken); }
+.bb-seg-btn { font: inherit; min-height: var(--segment-height); border: none; border-radius: var(--radius-sm); background: transparent; color: var(--text-secondary); font-size: 14px; line-height: 20px; font-weight: 600; cursor: pointer; padding: 0 var(--space-8); }
+.bb-seg-btn[aria-pressed="true"] { background: var(--surface); color: var(--text-primary); box-shadow: var(--elevation-1); }
+.bb-seg-btn:active, .bb-seg-btn.is-pressed { background: rgba(255, 255, 255, 0.6); }
+.bb-seg-btn:focus-visible, .bb-seg-btn.is-focused { outline: none; box-shadow: var(--focus-ring); }
+.bb-seg-btn:disabled { color: var(--text-disabled); cursor: not-allowed; }
+
+/* Card */
+.bb-card { display: flex; flex-direction: column; gap: var(--space-12); box-sizing: border-box; padding: var(--card-padding); border-radius: var(--radius-xl); color: var(--text-primary); text-decoration: none; text-align: left; font: inherit; }
+.bb-card-surface { background: var(--surface); border: 1px solid var(--border-subtle); }
+.bb-card-brand { background: var(--surface-brand); color: var(--text-on-brand); border-radius: var(--radius-2xl); padding: var(--card-padding-hero); }
+.bb-card-allergy { background: var(--error-bg); border: 1.5px solid var(--error-border); }
+.bb-card-active { background: var(--surface); border: 1.5px solid var(--border-selected); }
+.bb-card-interactive { cursor: pointer; }
+.bb-card-interactive.bb-card-surface:active, .bb-card-interactive.bb-card-surface.is-pressed { background: var(--bg); border-color: var(--border-default); }
+.bb-card-interactive.bb-card-allergy:active, .bb-card-interactive.bb-card-allergy.is-pressed { border-color: var(--error); }
+.bb-card-interactive.bb-card-brand:active, .bb-card-interactive.bb-card-brand.is-pressed { background: var(--color-primary-pressed); }
+.bb-card-interactive:focus-visible, .bb-card.is-focused { outline: none; box-shadow: var(--focus-ring); }
+.bb-card[aria-disabled="true"] { background: var(--surface-sunken); color: var(--text-disabled); border-color: transparent; cursor: not-allowed; }
+.bb-card-title { font-size: 17px; line-height: 22px; font-weight: 700; margin: 0; }
+.bb-card-sub { font-size: 13px; line-height: 18px; color: var(--text-secondary); }
+.bb-card-brand .bb-card-sub { color: var(--text-on-brand); }
+.bb-card-eyebrow { font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Category tile */
+.bb-tile { font: inherit; display: flex; flex-direction: column; gap: var(--space-12); min-height: 108px; box-sizing: border-box; padding: var(--card-padding-compact); border-radius: var(--radius-lg); border: 1.5px solid transparent; color: var(--text-primary); text-decoration: none; text-align: left; cursor: pointer; }
+.bb-tile-blue { background: var(--color-primary-subtle); }
+.bb-tile-cyan { background: var(--color-secondary-subtle); }
+.bb-tile-top { display: flex; align-items: center; justify-content: space-between; }
+.bb-tile-icon { width: var(--icon-disc); height: var(--icon-disc); border-radius: var(--radius-full); background: var(--surface); display: flex; align-items: center; justify-content: center; }
+.bb-tile-blue .bb-tile-icon { color: var(--color-primary-action); }
+.bb-tile-cyan .bb-tile-icon { color: var(--success); }
+.bb-tile-icon svg { width: var(--icon-md); height: var(--icon-md); }
+.bb-tile-count { font-size: 12px; line-height: 16px; font-weight: 700; color: var(--text-secondary); }
+.bb-tile-title { font-size: 15px; line-height: 20px; font-weight: 700; }
+.bb-tile-detail { font-size: 13px; line-height: 18px; color: var(--text-secondary); }
+.bb-tile:active, .bb-tile.is-pressed { border-color: var(--border-strong); }
+.bb-tile:focus-visible, .bb-tile.is-focused { outline: none; box-shadow: var(--focus-ring); }
+.bb-tile[aria-disabled="true"] { background: var(--surface-sunken); color: var(--text-disabled); cursor: not-allowed; }
+.bb-tile[aria-disabled="true"] .bb-tile-icon, .bb-tile[aria-disabled="true"] .bb-tile-detail, .bb-tile[aria-disabled="true"] .bb-tile-count { color: var(--text-disabled); }
+
+/* Record row */
+.bb-row { display: flex; gap: var(--space-12); align-items: flex-start; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--card-padding-compact); box-sizing: border-box; }
+.bb-row-date { width: 52px; flex-shrink: 0; box-sizing: border-box; border-radius: var(--radius-md); background: var(--color-primary-subtle); padding: var(--space-8) 0; display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.bb-row-mon { font-size: 12px; line-height: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.bb-row-yr { font-size: 13px; line-height: 18px; font-weight: 600; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.bb-row-main { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.bb-row-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-8); }
+.bb-row-name { font-size: 15px; line-height: 20px; font-weight: 700; }
+.bb-row-detail { font-size: 14px; line-height: 20px; font-variant-numeric: tabular-nums; }
+.bb-row-source { font-size: 12px; line-height: 16px; color: var(--text-tertiary); }
+
+/* Family lock for every component (after the component rules, so it wins over `font: inherit`). */
+.bb-btn, .bb-qa, .bb-iconbtn, .bb-chip, .bb-tag, .bb-seg, .bb-seg-btn, .bb-card, .bb-tile, .bb-row { font-family: var(--font-sans); }
