@@ -65,7 +65,8 @@ Bottom tab bar on main screens: Home · Records · (raised Share button with the
     4. *Suggested to bring*: complaint, both allergies, Amlodipine, hypertension, CBC + lipid panel, last visit (Rizal District Hospital, Sep 18), each with its tag; "Nothing has been shared yet."
     5. *Before you share*: lock card "Your record is yours. Nothing is shared automatically."; What / Who (confirmed when you tap the desk reader) / How long; Choose what to share / Not now.
     6. *What do you want to share?*: per-item checklist (7 ticked; family history, Losartan and other results unticked), "7 items selected · Select all", Continue to share. Unticking an allergy asks first: "Share without this allergy?" Keep sharing it / Don't share.
-    - Steps 1-3 always show one fixed safety line (not decided by AI): "If the pain is severe or you're short of breath, go to the nearest ER or call 911 now." Neutral styling, not pink.
+    - Steps 1-3 always show one fixed safety line (not decided by AI), in pink (`#ffe8f1` fill, `#a3164f` border and heading): "Severe pain or trouble breathing? Go to the nearest ER or call 911 now."
+    - Keep these screens short: one heading per step, a slim header with "n of 6" and the progress bar, no Filipino second lines.
     - Tap to share no longer has its own section picker: it shows a "What they can see · 7 items · Change" card that goes back to step 6.
 
 Optional provider side (landscape tablet 1280 × 800 at a triage desk): triage queue with a tap-to-receive target; patient summary with allergies first and unshared sections shown as locked, not hidden; full record with a "tests already done" lab table; visit notes where a nurse marks Marco's Document-sourced and Patient-reported entries as **Reviewed**; a facility overview with a staff access log.
