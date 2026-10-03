@@ -33,15 +33,15 @@ Every foreground/background pairing in the five screens and the printout, measur
 | 25 | `blue-600` #0070d9 | `blue-100` #e5f2ff | 4.28 | 3 (icon) | Pass as icon · Fail as small text | Active tab icon in its pill |
 | 26 | `text-link` #005bb5 | `bg` #f4f7fb | 6.18 | 4.5 | Pass | "See all" |
 | 27 | `info` #005bb5 | `surface` #ffffff | 6.64 | 4.5 | Pass | "Active now", links |
-| 28 | `info` #005bb5 | `info-bg` #e5f2ff | 5.84 | 4.5 | Pass | Verified tag, shared-section chips, Print pill |
+| 28 | `info` #005bb5 | `info-bg` #e5f2ff | 5.84 | 4.5 | Pass | Provider-reviewed tag, shared-section chips, Print pill |
 | 29 | `text-link` #005bb5 | `cyan-100` #dcfbfa | 6.08 | 4.5 | Pass | "View" in the success banner |
-| 30 | `warning` #6b5400 | `warning-bg` #fff6cc | 6.67 | 4.5 | Pass | Self-input tag |
+| 30 | `warning` #6b5400 | `warning-bg` #fff6cc | 6.67 | 4.5 | Pass | Patient-reported tag |
 | 31 | `yellow-800` #4d3c00 | `warning-bg` #fff6cc | 9.84 | 4.5 | Pass | Scanner note |
 | 32 | `warning` #6b5400 | `surface` #ffffff | 7.26 | 3 (icon) | Pass | Lab / Immunization tile icons |
 | 33 | `error` #a3164f | `error-bg` #ffe8f1 | 6.49 | 4.5 | Pass | "Mga allergy" subtitle, Revoke button |
 | 34 | `error` #a3164f | `surface` #ffffff | 7.54 | 3 (icon) | Pass | Vitals tile icon |
 | 35 | `success` #00706e | `surface` #ffffff | 5.93 | 4.5 | Pass | Medication icon, shield icon |
-| 36 | `cyan-800` #00504f | `success-bg` #dcfbfa | 8.50 | 4.5 | Pass | Success banner detail |
+| 36 | `cyan-800` #00504f | `success-bg` #dcfbfa | 8.50 | 4.5 | Pass | Success banner detail, Document-sourced tag text |
 | 37 | `text-inverse` #ffffff | `surface-inverse` #0b1b33 | 17.23 | 4.5 | Pass | Scanner title |
 | 38 | `text-inverse-secondary` #c9d3e1 | `surface-inverse` #0b1b33 | 11.40 | 4.5 | Pass | "Align the prescription in the frame" |
 | 39 | `text-inverse` #ffffff | `overlay-on-inverse` → #2d3b50 | 11.50 | 3 (icon) | Pass | Close and flash buttons |
@@ -60,8 +60,9 @@ All text pairings pass.
 | 45 | `cyan-400` #01dfdc | `cyan-50` #f4fdfd | 1.61 | **Fail** | Border of scanned fields | `color-secondary-strong` #009996 → **3.39** |
 | 46 | `cyan-400` #01dfdc | `surface` #ffffff | 1.67 | **Fail** (advisory: "Active now" text present) | Live dot, Access log | `cyan-600` → **3.50** |
 | 47 | `pink-300` #fd8fb9 | `surface` #ffffff | 2.14 | **Fail** | Unread dot on the bell | `error-strong` #d6336f → **4.60** |
-| 48 | `yellow-500` #c9a700 | `warning-bg` #fff6cc | 2.14 | **Fail** | Self-input dashed border (the non-colour cue) | `warning-border` #a07f00 → **3.49** |
-| 49 | `blue-300` #b8dbff | `info-bg` #e5f2ff | 1.26 | **Fail** (advisory) | Verified tag border | `info-border` #0084ff → **3.22** |
+| 48 | `yellow-500` #c9a700 | `warning-bg` #fff6cc | 2.14 | **Fail** | Patient-reported dashed border (the non-colour cue) | `warning-border` #a07f00 → **3.49** |
+| 49 | `blue-300` #b8dbff | `info-bg` #e5f2ff | 1.26 | **Fail** (advisory) | Provider-reviewed tag border | `info-border` #0084ff → **3.22** |
+| 49b | `cyan-600` #009996 | `success-bg` #dcfbfa | 3.21 | Pass | Document-sourced tag border | — |
 | 50 | `border-selected` #0084ff | `blue-100` #e5f2ff | 3.22 | Pass | Selected toggle chip | — |
 | 51 | `blue-500` #0084ff | `bg` #f4f7fb | 3.40 | Pass | Share FAB, pulse centre | — |
 | 52 | `focus-ring` #0070d9 | `bg` / `surface` / `blue-100` | 4.52 / 4.86 / 4.28 | Pass | Proposed focus ring | — |
@@ -73,6 +74,6 @@ All text pairings pass.
 - **New token `neutral-450` #7c8aa0, surfaced as `border-strong`.** It replaces `neutral-150`, `neutral-300` and `neutral-400` wherever a border outlines something you can type into, tick or tap. It sits between `neutral-400` and `neutral-500`, so the ramp stays in order.
 - **New `cyan-600` #009996 (`color-secondary-strong`).** Cyan-400 stays the brand fill; its darker step handles UI marks.
 - **New `pink-600` #d6336f (`error-strong`)** for small pink signals. `pink-300` stays decorative.
-- **New `yellow-600` #a07f00 (`warning-border`)** replaces `yellow-500`, so the dashed border that tells Self-input apart without colour passes 3:1.
+- **New `yellow-600` #a07f00 (`warning-border`)** replaces `yellow-500`, so the dashed border that tells Patient-reported apart without colour passes 3:1.
 - **`info-border` now points to `blue-500`**. `blue-300` is deprecated.
 - **Rule, not token:** white text sits on `blue-600` or darker. `blue-500` carries only icons and the logo.

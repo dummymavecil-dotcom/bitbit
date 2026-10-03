@@ -14,4 +14,5 @@
 - The Inter font is loaded remotely, not shipped. If Claude Design blocks Google Fonts, designs fall back to system sans. The fix is to ship Inter woff2 files through `cfg.extraFonts`.
 - The QuickAction title wraps to two lines in the fallback font at 169px columns. Recheck it in Claude Design once Inter loads.
 - `docs/guides/*.md` and `docs/components/*.md` are copies of the Bitbit Design System artifact. Re-copy them when that artifact changes.
-- The first sync never uploaded: DesignSync had no claude.ai/design authorization in this cloud session. There is no projectId pinned yet.
+- The first sync never uploaded: DesignSync had no claude.ai/design authorization in this cloud session (/design-login is unavailable here). No projectId is pinned yet.
+- Persona is Marco Dela Cruz (BPO agent, 32), per the Team 4 coaching note. Tags are provider | document | patient; `verified` and `self` remain as aliases.

@@ -3,8 +3,8 @@ import { Card, Tag, Button } from '@bitbit/ui';
 export const HealthCard = () => (
   <Card variant="brand" style={{ width: 350 }}>
     <span className="bb-card-eyebrow">Bitbit health card</span>
-    <span style={{ fontSize: 28, lineHeight: '34px', fontWeight: 700, letterSpacing: '-0.02em' }}>Maria Dela Cruz</span>
-    <span className="bb-card-sub">42 yrs · Female · Blood type O+</span>
+    <span style={{ fontSize: 28, lineHeight: '34px', fontWeight: 700, letterSpacing: '-0.02em' }}>Marco Dela Cruz</span>
+    <span className="bb-card-sub">32 yrs · Male · Blood type O+</span>
   </Card>
 );
 
@@ -16,7 +16,7 @@ export const Allergy = () => (
         <span style={{ fontSize: 15, fontWeight: 700 }}>Penicillin</span>
         <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Hives, itching</span>
       </span>
-      <Tag kind="verified" />
+      <Tag kind="provider" />
     </div>
   </Card>
 );

@@ -4,15 +4,15 @@ Bitbit is a medical record that the patient owns and carries, so that a triage d
 
 ## Content
 
-- Write English first. Add Filipino as a second, smaller line (`body-sm` / `text-tertiary`), never mixed into the same label: "Records" over "Mga record ni Maria"; "Tap to share" over "Ibahagi".
+- Write English first. Add Filipino as a second, smaller line (`body-sm` / `text-tertiary`), never mixed into the same label: "Records" over "Mga record ni Marco"; "Tap to share" over "Ibahagi".
 - Say what happened, in the owner's words: "Shared with Rizal District Hospital", "Added to Medication", "Access ends: today, 6:00 PM".
 - Record facts, never advice. Show a value with its reference range ("6.8% · ref. below 5.7%") and who recorded it. No "High", "Normal", tips or encouragement.
-- Name the source of every record: "Verified by Dr. Liza Ramos · San Roque Health Center" or "Added by you".
+- Name the source of every record and tag it: "Reviewed by Dr. A. Ramos · Rizal District Hospital" (Provider-reviewed), "Copied from prescription · Riverside Clinic" (Document-sourced) or "Added by you" (Patient-reported). AI only copies what is written on a paper; the patient checks every field before it is saved.
 - No emoji. Icons carry meaning together with words.
 
 ## Color
 
-The brand is one blue with three bright secondaries. Blue carries actions and trust (Verified). Each secondary colour has one job: cyan for scanning and success, yellow for unconfirmed (Self-input) data, pink for allergies and destructive actions. Keep those jobs exclusive.
+The brand is one blue with three bright secondaries. Blue carries actions and trust (Provider-reviewed). Each secondary colour has one job: cyan for scanning, success and document-sourced data, yellow for patient-reported data, pink for allergies and destructive actions. Keep those jobs exclusive.
 
 ### Primary, secondary, accent
 
@@ -25,7 +25,7 @@ The brand is one blue with three bright secondaries. Blue carries actions and tr
 | `color-secondary` → `cyan-400` | #01dfdc | Scan action, success disc. Ink text only. |
 | `color-secondary-strong` → `cyan-600` | #009996 | *Proposed.* Cyan UI marks that need 3:1. |
 | `color-secondary-subtle` → `cyan-100` | #dcfbfa | Cyan tint. |
-| `color-accent-yellow` → `yellow-400` | #fdd101 | Accent reserved for Self-input. |
+| `color-accent-yellow` → `yellow-400` | #fdd101 | Accent reserved for Patient-reported data. |
 | `color-accent-pink` → `pink-300` | #fd8fb9 | Accent reserved for allergies. |
 
 ### Neutral scale
@@ -52,10 +52,10 @@ Neutrals are tinted toward the brand blue.
 
 | Meaning | Text / icon | Background | Fill / border | Seen as |
 | --- | --- | --- | --- | --- |
-| `success` | `cyan-700` #00706e | `success-bg` #dcfbfa | `success-fill` #01dfdc | "Added to Medication", share confirmation check |
-| `warning` | `yellow-700` #6b5400 | `warning-bg` #fff6cc | `warning-border` #a07f00 *(proposed)* | Self-input tag and note |
+| `success` | `cyan-700` #00706e | `success-bg` #dcfbfa | `success-fill` #01dfdc | "Added to Medication", share confirmation check, Document-sourced tag (`cyan-800` text, `cyan-600` border) |
+| `warning` | `yellow-700` #6b5400 | `warning-bg` #fff6cc | `warning-border` #a07f00 *(proposed)* | Patient-reported tag and note |
 | `error` | `pink-700` #a3164f | `error-bg` #ffe8f1 | `error-border` #fd8fb9 · `error-strong` #d6336f *(proposed)* | Allergies, Revoke, unread dot |
-| `info` | `blue-700` #005bb5 | `info-bg` #e5f2ff | `info-border` #0084ff | Verified tag, "Active now" |
+| `info` | `blue-700` #005bb5 | `info-bg` #e5f2ff | `info-border` #0084ff | Provider-reviewed tag, "Active now" |
 
 Success is cyan, not green, and error is pink. Every semantic colour also carries a word or icon, so meaning never depends on hue alone.
 

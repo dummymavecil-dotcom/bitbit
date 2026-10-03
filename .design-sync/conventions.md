@@ -10,7 +10,7 @@ Bitbit is a medical record the patient owns and carries: phone screens 390px wid
 ## Components (use these, don't rebuild them)
 - Actions: `Button` (variant `primary` | `secondary` | `danger`; `size="lg"` for the main CTA; `block`; `icon`), `QuickAction` (Home's two big tiles: `tone` primary/secondary, `title`, `subtitle`), `IconButton` (always pass `label`; `dot` for unread; `variant="inverse"` on dark).
 - Selection: `Chip` (`variant` filter | choice | toggle, `selected`), `SegmentedControl` (`options`, `value`, `onChange`, `label`).
-- Content: `Card` (`variant` surface | brand | allergy | active; `href` makes it a link), `CategoryTile` (`tone` blue | cyan, `icon`, `title`, `detail`, `count`), `RecordRow` (`month`, `year`, `name`, `detail`, `source`, `verified`), `Tag` (`kind` verified | self), `Icon` (`name`, `size`).
+- Content: `Card` (`variant` surface | brand | allergy | active; `href` makes it a link), `CategoryTile` (`tone` blue | cyan, `icon`, `title`, `detail`, `count`), `RecordRow` (`month`, `year`, `name`, `detail`, `source`, `provenance`), `Tag` (`kind` provider | document | patient), `Icon` (`name`, `size`).
 - Inside `Card`, use the helper classes `bb-card-eyebrow`, `bb-card-title` and `bb-card-sub` for its text.
 
 ## Tokens for your own glue (`var(--name)`)
@@ -25,7 +25,7 @@ Bitbit is a medical record the patient owns and carries: phone screens 390px wid
 
 ## Rules the agent must keep
 - Allergies come first on any record screen, in `Card variant="allergy"`. Pink (`--error*`) means allergies or destructive actions only; yellow (`--warning*`) means Self-input only.
-- Every record shows a `Tag`. Values are facts with reference ranges, never advice ("High", "Normal", tips).
+- Every record shows one `Tag`: `provider` (Provider-reviewed), `document` (Document-sourced: copied from a scanned paper, original attached) or `patient` (Patient-reported). Write AI extraction and the patient's check in the source line, never as extra badges. Values are facts with reference ranges, never advice ("High", "Normal", tips).
 - One `size="lg"` primary Button per screen. White text only on `--color-primary-action` or darker, never on `--color-primary` (#0084ff).
 - English label first, Filipino as a smaller second line (`--text-tertiary`, 13px).
 
@@ -36,14 +36,14 @@ const { Card, Tag, CategoryTile, QuickAction } = window.Bitbit;
   <Card variant="allergy" href="#allergies">
     <span className="bb-card-title">Allergies</span>
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--surface)', borderRadius: 16, padding: '10px 12px' }}>
-      <span style={{ fontWeight: 700 }}>Penicillin</span><Tag kind="verified" />
+      <span style={{ fontWeight: 700 }}>Penicillin</span><Tag kind="provider" />
     </div>
   </Card>
   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 'var(--grid-gap)' }}>
     <QuickAction icon="contactless" title="Tap to share" subtitle="Ibahagi" />
     <QuickAction tone="secondary" icon="scan" title="Scan reseta" subtitle="Add a medicine" />
-    <CategoryTile icon="pill" title="Medication" detail="Losartan, Metformin" count={2} href="#meds" />
-    <CategoryTile tone="cyan" icon="flask" title="Lab results" detail="HbA1c 6.8% · Mar 2026" count={6} href="#labs" />
+    <CategoryTile icon="pill" title="Medication" detail="Amlodipine 5 mg" count={1} href="#meds" />
+    <CategoryTile tone="cyan" icon="flask" title="Lab results" detail="CBC + lipid panel · May 2026" count={6} href="#labs" />
   </div>
 </div>
 ```

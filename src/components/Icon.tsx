@@ -30,6 +30,7 @@ const SHAPES = {
   close: [{ d: 'M18 6 6 18' }, { d: 'm6 6 12 12' }],
   search: [{ circle: [11, 11, 7] }, { d: 'm21 21-4.3-4.3' }],
   lock: [{ rect: [4, 11, 16, 10, 2] }, { d: 'M8 11V7a4 4 0 0 1 8 0v4' }],
+  file: [{ d: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z' }, { d: 'M14 2v6h6' }, { d: 'M8 13h8' }, { d: 'M8 17h5' }],
 } satisfies Record<string, Shape[]>;
 
 export type IconName = keyof typeof SHAPES;

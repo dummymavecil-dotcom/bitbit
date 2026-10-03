@@ -19,7 +19,7 @@ export interface CategoryTileProps extends Omit<React.HTMLAttributes<HTMLElement
 
 /**
  * Tile that opens one record category from the 2×3 grid on Home (Vitals, Medication, Conditions, Lab results, Immunization, Procedures).
- * @example <CategoryTile tone="cyan" icon="pill" title="Medication" detail="Losartan, Metformin" count={2} href="/records/medication" />
+ * @example <CategoryTile tone="cyan" icon="pill" title="Medication" detail="Amlodipine 5 mg" count={1} href="/records/medication" />
  */
 export function CategoryTile({ tone = 'blue', icon, title, detail, count, href, disabled, state, className, ...rest }: CategoryTileProps) {
   const classes = cx('bb-tile', `bb-tile-${tone}`, stateClass(state), className);

@@ -26,7 +26,7 @@ Every interactive component has the same four states. The screens only showed de
 | Chip · choice | `surface`, `border-strong`, `radius-md` | `blue-600`, white | same as filter | `focus-ring` | same |
 | Chip · toggle | `surface`, `border-strong`, empty checkbox | `blue-100`, `border-selected`, filled `blue-600` checkbox | on → `blue-200`; off → `surface-sunken` | `focus-ring` | same; checkbox outlined in `text-disabled` |
 | SegmentedControl | `text-secondary` on `surface-sunken` | `surface`, `text-primary`, `elevation-1` | 60% white wash | `focus-ring` on the segment | `text-disabled` |
-| Tag | Verified / Self-input | — | — | — | — (not interactive) |
+| Tag | Provider-reviewed / Document-sourced / Patient-reported | — | — | — | — (not interactive) |
 
 ## Cards
 

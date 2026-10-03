@@ -1,25 +1,40 @@
 import * as React from 'react';
-import { Icon } from './Icon';
+import { Icon, type IconName } from './Icon';
 import { cx } from '../utils';
 
+/** Who vouches for a record, highest first: provider-reviewed > document-sourced > patient-reported. */
+export type Provenance = 'provider' | 'document' | 'patient';
+
+const KINDS: Record<Provenance, { icon: IconName; label: string }> = {
+  provider: { icon: 'verified', label: 'Provider-reviewed' },
+  document: { icon: 'file', label: 'Document-sourced' },
+  patient: { icon: 'pencil', label: 'Patient-reported' },
+};
+
 export interface TagProps {
-  /** verified: confirmed by a provider. self: entered by the patient. */
-  kind: 'verified' | 'self';
-  /** Override the label (defaults to "Verified" / "Self-input"). */
+  /** provider: entered or reviewed by a provider. document: copied from a scanned paper, original attached. patient: entered by the patient. ('verified' and 'self' are legacy aliases.) */
+  kind: Provenance | 'verified' | 'self';
+  /** Override the label. */
   children?: React.ReactNode;
   className?: string;
 }
 
+function normalize(kind: TagProps['kind']): Provenance {
+  if (kind === 'verified') return 'provider';
+  if (kind === 'self') return 'patient';
+  return kind;
+}
+
 /**
- * Provenance tag every record carries: Verified (a provider confirmed it) or Self-input (the patient entered it).
- * @example <Tag kind="self" />
+ * Provenance tag every record carries: Provider-reviewed, Document-sourced (copied from a scanned paper) or Patient-reported.
+ * @example <Tag kind="document" />
  */
 export function Tag({ kind, children, className }: TagProps) {
-  const verified = kind !== 'self';
+  const k = normalize(kind);
   return (
-    <span className={cx('bb-tag', verified ? 'bb-tag-verified' : 'bb-tag-self', className)}>
-      <Icon name={verified ? 'verified' : 'pencil'} size={12} strokeWidth={2.6} />
-      {children ?? (verified ? 'Verified' : 'Self-input')}
+    <span className={cx('bb-tag', `bb-tag-${k}`, className)}>
+      <Icon name={KINDS[k].icon} size={12} strokeWidth={2.6} />
+      {children ?? KINDS[k].label}
     </span>
   );
 }

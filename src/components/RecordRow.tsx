@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tag } from './Tag';
+import { Tag, type Provenance } from './Tag';
 import { cx } from '../utils';
 
 export interface RecordRowProps {
@@ -10,17 +10,20 @@ export interface RecordRowProps {
   name: string;
   /** The value as reported, with the reference range when there is one. Never an interpretation. */
   detail: string;
-  /** Who vouches for it: "Verified by Dr. … · Facility" or "Added by you". */
+  /** Who vouches for it: "Reviewed by Dr. … · Facility", "Copied from prescription · Clinic" or "Added by you". */
   source?: string;
-  verified: boolean;
+  /** Which tag the row shows. */
+  provenance?: Provenance;
+  /** Legacy: true = provider, false = patient. Use provenance. */
+  verified?: boolean;
   className?: string;
 }
 
 /**
- * One health record in a list: date badge, name, reported value, source line and its Verified / Self-input tag.
- * @example <RecordRow month="Mar" year="2026" name="HbA1c" detail="6.8% · ref. below 5.7%" source="Verified · San Roque Health Center lab" verified />
+ * One health record in a list: date badge, name, reported value, source line and its provenance tag.
+ * @example <RecordRow month="Aug" year="2026" name="Amlodipine 5 mg" detail="1 tablet once daily" source="Copied from prescription · Riverside Clinic" provenance="document" />
  */
-export function RecordRow({ month, year, name, detail, source, verified, className }: RecordRowProps) {
+export function RecordRow({ month, year, name, detail, source, provenance, verified, className }: RecordRowProps) {
   return (
     <article className={cx('bb-row', className)}>
       <div className="bb-row-date">
@@ -30,7 +33,7 @@ export function RecordRow({ month, year, name, detail, source, verified, classNa
       <div className="bb-row-main">
         <div className="bb-row-head">
           <span className="bb-row-name">{name}</span>
-          <Tag kind={verified ? 'verified' : 'self'} />
+          <Tag kind={provenance ?? (verified ? 'provider' : 'patient')} />
         </div>
         <span className="bb-row-detail">{detail}</span>
         {source ? <span className="bb-row-source">{source}</span> : null}
