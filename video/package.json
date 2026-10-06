@@ -1,0 +1,42 @@
+{
+  "name": "bitbit-video",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Programmatic motion graphics for Bitbit, built with Remotion.",
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render",
+    "render:sample": "remotion render BitbitIntro out/bitbit-intro.mp4",
+    "still": "remotion still",
+    "compositions": "remotion compositions",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "new": "node scripts/new-composition.mjs",
+    "upgrade": "remotion upgrade"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.533",
+    "@remotion/fonts": "4.0.533",
+    "@remotion/media": "4.0.533",
+    "@remotion/media-utils": "4.0.533",
+    "@remotion/paths": "4.0.533",
+    "@remotion/shapes": "4.0.533",
+    "@remotion/transitions": "4.0.533",
+    "@remotion/zod-types": "4.0.533",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.533",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.533",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "eslint": "9.38.0",
+    "typescript": "5.9.3"
+  }
+}
