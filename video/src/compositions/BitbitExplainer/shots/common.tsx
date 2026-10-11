@@ -79,11 +79,13 @@ export const Center: React.FC<{ children: ReactNode; style?: CSSProperties }> = 
  * Root of every explainer scene: a flat brand colour (no gradients) and Inter. Children are laid out
  * in 1920 × 1080 design pixels and scaled to the output resolution.
  */
-export const Stage: React.FC<{ children: ReactNode; tone?: 'light' | 'blue' }> = ({ children, tone = 'light' }) => {
+export const Stage: React.FC<{ children: ReactNode; tone?: 'light' | 'blue' | 'ink'; bg?: string; color?: string }> = ({ children, tone = 'light', bg, color }) => {
   const { width, height } = useVideoConfig();
   const s = width / 1920;
+  const toneBg = tone === 'blue' ? COLORS.blue600 : tone === 'ink' ? COLORS.ink : COLORS.bg;
+  const toneInk = tone === 'light' ? COLORS.ink : COLORS.white;
   return (
-    <AbsoluteFill style={{ backgroundColor: tone === 'blue' ? COLORS.blue600 : COLORS.bg, overflow: 'hidden' }}>
+    <AbsoluteFill style={{ backgroundColor: bg ?? toneBg, overflow: 'hidden' }}>
       <div
         style={{
           position: 'absolute',
@@ -94,7 +96,7 @@ export const Stage: React.FC<{ children: ReactNode; tone?: 'light' | 'blue' }> =
           transform: `scale(${s})`,
           transformOrigin: '0 0',
           fontFamily: FONT_STACK,
-          color: tone === 'blue' ? COLORS.white : COLORS.ink,
+          color: color ?? toneInk,
         }}
       >
         {children}

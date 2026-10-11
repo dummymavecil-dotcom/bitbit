@@ -86,10 +86,10 @@ const Row: React.FC<{ top: number; label: string; value: string; strong?: boolea
   </div>
 );
 
-/** Riverside Clinic laboratory: CBC + lipid panel, May 04, 2026. Values shown as facts with references. */
+/** Lakeview Diagnostic Center: CBC + lipid panel, May 4, 2026 (matches the provider screens). */
 export const LabPaper: React.FC<{ scale?: number; rotate?: number; style?: CSSProperties; shadow?: boolean }> = (p) => (
   <Sheet {...p}>
-    <div style={{ position: 'absolute', top: 40, left: 44, fontSize: 26, fontWeight: 800, letterSpacing: '0.08em' }}>RIVERSIDE CLINIC LABORATORY</div>
+    <div style={{ position: 'absolute', top: 40, left: 44, fontSize: 26, fontWeight: 800, letterSpacing: '0.08em' }}>LAKEVIEW DIAGNOSTIC CENTER</div>
     <div style={{ position: 'absolute', top: 80, left: 44, fontSize: 18, color: COLORS.textSecondary }}>Requested by Dr. J. Santos · Collected 05/04/2026</div>
     <div style={{ position: 'absolute', top: 116, left: 44, fontSize: 18 }}>
       Patient: <b>Marco Dela Cruz</b> · 32 · M
@@ -99,31 +99,31 @@ export const LabPaper: React.FC<{ scale?: number; rotate?: number; style?: CSSPr
       <span style={{ width: 210 }}>TEST</span>
       <span>RESULT · REFERENCE</span>
     </div>
-    <Row top={230} label="Hemoglobin" value="148 g/L · 135–175" />
+    <Row top={230} label="Hemoglobin" value="14.6 g/dL · 13.5–17.5" />
     <Row top={276} label="WBC" value="7.2 × 10⁹/L · 4.5–11.0" />
     <Row top={322} label="Platelets" value="265 × 10⁹/L · 150–400" />
     <Row top={368} label="Total cholesterol" value="5.6 mmol/L · below 5.2" />
-    <Row top={414} label="LDL cholesterol" value="3.9 mmol/L · below 3.4" />
+    <Row top={414} label="LDL cholesterol" value="3.6 mmol/L · below 2.6" />
     <Row top={460} label="HDL cholesterol" value="1.1 mmol/L · above 1.0" />
-    <Row top={506} label="Triglycerides" value="1.7 mmol/L · below 1.7" />
+    <Row top={506} label="Triglycerides" value="1.9 mmol/L · below 1.7" />
     <div style={{ position: 'absolute', top: 640, left: 44, fontSize: 16, color: COLORS.textSecondary }}>Medical technologist · Pathologist</div>
   </Sheet>
 );
 
-/** Rizal District Hospital discharge summary, Mar 03–05, 2024. */
+/** Rizal District Hospital discharge summary, Jan 12–14, 2026 (matches the provider screens). */
 export const DischargePaper: React.FC<{ scale?: number; rotate?: number; style?: CSSProperties; shadow?: boolean }> = (p) => (
   <Sheet {...p}>
     <div style={{ position: 'absolute', top: 40, left: 44, fontSize: 24, fontWeight: 800, letterSpacing: '0.08em' }}>RIZAL DISTRICT HOSPITAL</div>
     <div style={{ position: 'absolute', top: 78, left: 44, fontSize: 30, fontWeight: 800 }}>Discharge summary</div>
     <Row top={140} label="Patient" value="Marco Dela Cruz · 32 · M" strong />
-    <Row top={186} label="Admitted" value="03/03/2024" />
-    <Row top={232} label="Discharged" value="03/05/2024" />
+    <Row top={186} label="Admitted" value="01/12/2026" />
+    <Row top={232} label="Discharged" value="01/14/2026" />
     <Row top={278} label="Attending" value="Dr. A. Ramos" />
     <Row top={324} label="Reason for admission" value="Hypertensive urgency" />
     <Row top={370} label="On arrival" value="BP 180/110" />
     <Row top={416} label="Discharge diagnosis" value="Hypertension" strong />
     <Row top={462} label="Home medication" value="Losartan 50 mg, 1 tab once daily" />
-    <Row top={508} label="Follow-up" value="OPD in 2 weeks" />
+    <Row top={508} label="At discharge" value="BP 118/76" />
     <div style={{ position: 'absolute', top: 640, left: 44, fontSize: 16, color: COLORS.textSecondary }}>Prepared by Dr. A. Ramos · Internal Medicine</div>
   </Sheet>
 );

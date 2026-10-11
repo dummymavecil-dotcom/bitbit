@@ -210,8 +210,8 @@ export const SourceScene: React.FC = () => (
 type Pass = { enter: number; exit: number; paper: 'rx' | 'lab' | 'dc'; row: { icon: IconName; title: string; detail: string } };
 const PASSES: Pass[] = [
   { enter: 0.2, exit: 1.35, paper: 'rx', row: { icon: 'pill', title: 'Amlodipine 5 mg · once daily', detail: 'Riverside Clinic · Aug 12, 2026' } },
-  { enter: 1.55, exit: 2.5, paper: 'lab', row: { icon: 'flask', title: 'CBC + lipid panel', detail: 'Riverside Clinic laboratory · May 04, 2026' } },
-  { enter: 2.7, exit: 3.45, paper: 'dc', row: { icon: 'clipboard', title: 'Discharge summary · hypertension', detail: 'Rizal District Hospital · Mar 05, 2024' } },
+  { enter: 1.55, exit: 2.5, paper: 'lab', row: { icon: 'flask', title: 'CBC + lipid panel', detail: 'Lakeview Diagnostic Center · May 4, 2026' } },
+  { enter: 2.7, exit: 3.45, paper: 'dc', row: { icon: 'clipboard', title: 'Discharge summary · hypertension', detail: 'Rizal District Hospital · Jan 14, 2026' } },
 ];
 
 const BatchPhone: React.FC = () => {
@@ -305,8 +305,8 @@ export const BatchScene: React.FC = () => (
 const VISITS: { date: string; place: string; kind: string; record: { icon: IconName; title: string; tag: Provenance } }[] = [
   { date: 'SEP 18, 2026', place: 'Rizal District Hospital', kind: 'Triage · Nurse J. Mendoza', record: { icon: 'vitals', title: 'BP 136/86 · HR 76', tag: 'provider' } },
   { date: 'AUG 12, 2026', place: 'Riverside Clinic', kind: 'Consultation · Dr. J. Santos', record: { icon: 'pill', title: 'Amlodipine 5 mg', tag: 'document' } },
-  { date: 'MAY 04, 2026', place: 'Riverside Clinic laboratory', kind: 'Lab test · requested by Dr. J. Santos', record: { icon: 'flask', title: 'CBC + lipid panel', tag: 'document' } },
-  { date: 'MAR 03–05, 2024', place: 'Rizal District Hospital', kind: 'Admission · Dr. A. Ramos', record: { icon: 'clipboard', title: 'Discharge summary', tag: 'document' } },
+  { date: 'MAY 4, 2026', place: 'Lakeview Diagnostic Center', kind: 'Lab test · requested by Dr. J. Santos', record: { icon: 'flask', title: 'CBC + lipid panel', tag: 'document' } },
+  { date: 'JAN 12–14, 2026', place: 'Rizal District Hospital', kind: 'Admission · Dr. A. Ramos', record: { icon: 'clipboard', title: 'Discharge summary', tag: 'document' } },
 ];
 
 const VisitsContent: React.FC = () => {
