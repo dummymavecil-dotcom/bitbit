@@ -4,6 +4,7 @@ import { bitbitIntroSchema } from './compositions/BitbitIntro/schema';
 import { getIntroDuration } from './compositions/BitbitIntro/timing';
 import { VIDEO } from './config/video';
 import { BitbitExplainer, BitbitExplainer_SECONDS, BitbitExplainerSchema } from './compositions/BitbitExplainer/BitbitExplainer';
+import { BitbitPitch, BitbitPitch_SECONDS, BitbitPitchSchema } from './compositions/BitbitPitch/BitbitPitch';
 import { PitchPartCompositions } from './compositions/BitbitPitch/parts';
 // @new-composition-imports (scripts/new-composition.mjs inserts imports above this line)
 
@@ -51,8 +52,18 @@ export const RemotionRoot: React.FC = () => {
         />
         {/* @new-composition (scripts/new-composition.mjs inserts compositions above this line) */}
       </Folder>
-      {/* Built part by part: add part numbers here as they are finished. */}
-      <PitchPartCompositions parts={[1, 2, 3, 4, 5]} />
+      {/* Bitbit TGIC pitch: full video plus one preview composition per part. */}
+      <Composition
+        id="BitbitPitch"
+        component={BitbitPitch}
+        schema={BitbitPitchSchema}
+        defaultProps={{ music: true, narration: false }}
+        durationInFrames={Math.round(BitbitPitch_SECONDS * VIDEO.fps)}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+      />
+      <PitchPartCompositions parts={[1, 2, 3, 4, 5, 6, 7, 8]} />
     </>
   );
 };

@@ -15,6 +15,8 @@ npm run render:sample   # → out/bitbit-intro.mp4 (1920×1080, 30 fps, ~15 s)
 
 | Task | Command |
 | --- | --- |
+| Render the full TGIC pitch (≈ 4:50) | `npx remotion render BitbitPitch out/bitbit-pitch.mp4` |
+| Render one part of the pitch | `npx remotion render BitbitPitch-P3 out/pitch-part3.mp4` |
 | Render the Bitbit explainer (Parts 1–2) | `npx remotion render BitbitExplainer out/bitbit-explainer.mp4` |
 | Preview all compositions | `npm run studio` |
 | Create a composition | `npm run new -- MyVideo --seconds 10` |
@@ -62,3 +64,18 @@ component in `shots/Part1.tsx` or `shots/Part2.tsx`; which transition brings it 
 file in `public/audio/` and set the `narration` prop in Studio (e.g. `audio/narration.mp3`); the
 music then drops under it automatically. The brief it was built from is
 `../design-prompts/bitbit-explainer-video-prompt.md`.
+
+## Bitbit TGIC pitch
+
+`src/compositions/BitbitPitch/` is the full pitch video (56 narrated lines, 8 parts, about 4:50),
+built from `../design-prompts/bitbit-tgic-video-prompt.md`.
+
+- `timing.ts`: the script. Each line has its speaker, narration and `seconds`. When the voice-over is
+  recorded, set each line's `seconds` to its real length; every scene, transition and part re-times.
+- `scenes/index.tsx`: the scene list (which scene plays at which cue, and how it enters).
+- `scenes/p1-problem.tsx` … `p6-p8.tsx`: the scenes. Collect reuses the explainer's scenes.
+- `kit.tsx`: recurring pieces (timer, Desk Zero sign, queue ticket, people row).
+- `provider.tsx`, `screens-provider.tsx`, `screens-prepare.tsx`: rebuilt app screens.
+- Narration: put `pitch-p1.mp3` … `pitch-p8.mp3` in `public/audio/` and turn on the `narration`
+  prop in Studio; the music ducks under it.
+- `BitbitPitch-P1` … `-P8` are previews of each part, cut from the same timeline.

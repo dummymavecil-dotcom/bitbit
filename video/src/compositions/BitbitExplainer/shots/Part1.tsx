@@ -45,7 +45,7 @@ const TITLE_SHAPES = [
   { kind: 'square' as const, x: 260, y: 840, size: 110, color: COLORS.blue700, delay: 0.8, rotate: -12 },
 ];
 
-export const BrandCard: React.FC<{ footer?: string }> = ({ footer }) => (
+export const BrandCard: React.FC<{ footer?: string; footerAt?: number; children?: React.ReactNode }> = ({ footer, footerAt = 1.6, children }) => (
   <Stage tone="blue">
     <CutFrame width={1920} height={1080} delay={0.15} duration={1.6} />
     <Shapes shapes={TITLE_SHAPES} />
@@ -64,10 +64,11 @@ export const BrandCard: React.FC<{ footer?: string }> = ({ footer }) => (
         style={{ fontSize: 58, fontWeight: 700, color: COLORS.white, marginTop: 52, letterSpacing: '-0.02em' }}
       />
       {footer ? (
-        <Enter delay={1.6} rise={12}>
+        <Enter delay={footerAt} rise={12}>
           <div style={{ fontSize: 28, fontWeight: 700, opacity: 0.85, marginTop: 28, letterSpacing: '0.14em' }}>{footer}</div>
         </Enter>
       ) : null}
+      {children}
     </Center>
   </Stage>
 );

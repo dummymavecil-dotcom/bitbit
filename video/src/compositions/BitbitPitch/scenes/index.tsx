@@ -3,6 +3,7 @@ import { CUE, LEN } from '../timing';
 import { AddsScene, GlanceScene, PapersScene, PillarsScene, RecordScene, ReportedScene, TitleScene } from '../../BitbitExplainer/shots/Part1';
 import { BatchScene, CheckScene, ScanScene, SourceScene, VisitsScene, WwwwScene } from '../../BitbitExplainer/shots/Part2';
 import { ForwardScene, PartnerScene, PrepareAScene, PrepareBScene, PresentScene, ReceiveScene, SavingScene, ZeroScene } from './p4-p5';
+import { AiCardScene, ClosingScene, CountriesScene, EcosystemScene, FreeScene, GiveBackScene, HoursScene, IntegrationScene, MillionsScene, NationalIdScene, OneInTenScene, ScaleScene, SickScene, StepsScene, Year3Scene } from './p6-p8';
 import { HistoryScene, ProviderReviewScene, RevealTimerScene, SourcesScene } from './p2-p3';
 import { EnvelopeScene, MathScene, MeetScene, NextScene, QueueScene, QuestionsScene, ScatteredScene, SwitchScene, ThirtyScene } from './p1-problem';
 
@@ -55,4 +56,25 @@ export const SCENES: PitchScene[] = [
   { key: 'receive', start: CUE.receives, enter: 'right', Component: ReceiveScene },
   { key: 'zero', start: CUE.zero, enter: 'fade', Component: ZeroScene },
   { key: 'saving', start: CUE.saving, enter: 'right', Component: SavingScene },
+
+  // Part 6: business model (lines 39–41 share the ecosystem scene)
+  { key: 'ecosystem', start: CUE.beauty, enter: 'part', Component: EcosystemScene },
+  { key: 'free', start: CUE.free, enter: 'right', Component: FreeScene },
+  { key: 'ai', start: CUE.ai, enter: 'fade', Component: AiCardScene },
+  { key: 'steps', start: CUE.steps, enter: 'fade', Component: StepsScene },
+  { key: 'integration', start: CUE.integration, enter: 'right', Component: IntegrationScene },
+
+  // Part 7: scale and impact
+  { key: 'millions', start: CUE.millions, enter: 'part', Component: MillionsScene },
+  { key: 'nationalId', start: CUE.nationalId, enter: 'right', Component: NationalIdScene },
+  { key: 'oneInTen', start: CUE.oneInTen, enter: 'fade', Component: OneInTenScene },
+  { key: 'scale', start: CUE.scale, enter: 'right', Component: ScaleScene },
+  { key: 'year3', start: CUE.year3, enter: 'right', Component: Year3Scene },
+  { key: 'countries', start: CUE.countries, enter: 'right', Component: CountriesScene },
+  { key: 'giveBack', start: CUE.giveBack, enter: 'fade', Component: GiveBackScene },
+  { key: 'hours', start: CUE.hours, enter: 'fade', Component: HoursScene },
+
+  // Part 8: close (lines 55–56 + end hold share one brand card)
+  { key: 'sick', start: CUE.sick, enter: 'part', Component: SickScene },
+  { key: 'closing', start: CUE.tagline, enter: 'reveal', Component: () => <ClosingScene timerAt={LEN.tagline} /> },
 ];
