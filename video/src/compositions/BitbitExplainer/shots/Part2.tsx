@@ -185,8 +185,8 @@ export const CheckScene: React.FC = () => (
     <div style={{ position: 'absolute', left: 90, top: 40, width: 800, height: 1000 }}>
       <CheckPaperContent />
     </div>
-    <Enter delay={0.05} rise={40} style={{ position: 'absolute', left: 860, top: 40, width: 980, height: 1000 }}>
-      <div style={{ position: 'relative', width: 980, height: 1000, borderRadius: 36, background: COLORS.white, border: `1.5px solid ${COLORS.neutral150}` }}>
+    <Enter delay={0.05} rise={40} style={{ position: 'absolute', left: 860, top: 30, width: 980, height: 980 }}>
+      <div style={{ position: 'relative', width: 980, height: 980, borderRadius: 36, background: COLORS.white, border: `1.5px solid ${COLORS.neutral150}` }}>
         <CheckFormContent />
       </div>
     </Enter>
@@ -369,7 +369,7 @@ const VisitsContent: React.FC = () => {
 
 export const VisitsScene: React.FC = () => (
   <Stage>
-    <div style={{ position: 'absolute', left: 110, top: 40, width: 1700, height: 1000, borderRadius: 36, background: COLORS.white, border: `1.5px solid ${COLORS.neutral150}` }}>
+    <div style={{ position: 'absolute', left: 110, top: 30, width: 1700, height: 980, borderRadius: 36, background: COLORS.white, border: `1.5px solid ${COLORS.neutral150}` }}>
       <VisitsContent />
     </div>
   </Stage>
@@ -384,9 +384,9 @@ const WWWW = [
   { word: 'When.', label: 'DATE', value: 'Aug 12, 2026', at: 2.15, icon: 'calendar' as IconName },
 ];
 
-export const WwwwScene: React.FC = () => (
+export const WwwwScene: React.FC<{ pace?: number }> = ({ pace = 1 }) => (
   <Stage>
-    {WWWW.map((w, i) => (
+    {WWWW.map((ww) => ({ ...ww, at: ww.at * pace })).map((w, i) => (
       <Enter key={w.word} delay={w.at - 0.15} rise={60} style={{ position: 'absolute', left: 110 + i * 435, top: 90 }}>
         <div style={{ position: 'relative', width: 400, height: 900, borderRadius: 36, background: COLORS.blue600, color: COLORS.white, padding: '76px 40px', boxSizing: 'border-box' }}>
           <div style={{ fontSize: 96, fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 1 }}>{w.word}</div>

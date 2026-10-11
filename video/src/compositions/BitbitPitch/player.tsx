@@ -2,7 +2,7 @@ import { linearTiming, springTiming, TransitionSeries, type TransitionPresentati
 import { fade } from '@remotion/transitions/fade';
 import { slide } from '@remotion/transitions/slide';
 import { Fragment } from 'react';
-import { useVideoConfig } from 'remotion';
+import { Sequence, useVideoConfig } from 'remotion';
 import { EASE } from '../../utils';
 
 /** How a scene enters. `part` = slide up from the bottom (between parts), `reveal` = slow fade. */
@@ -40,8 +40,15 @@ export const ScenePlayer: React.FC<{ scenes: PitchScene[]; from: number; to: num
         return (
           <Fragment key={sc.key}>
             {i > 0 ? <TransitionSeries.Transition presentation={presentation} timing={timing} /> : null}
-            <TransitionSeries.Sequence durationInFrames={f(end) - f(sc.start)}>
-              <sc.Component />
+            <TransitionSeries.Sequence durationInFrames={f(end) - f(Math.max(sc.start, from))}>
+              {sc.start < from ? (
+                // Scene began before this window (part preview): keep its internal timing.
+                <Sequence from={f(sc.start)} layout="none">
+                  <sc.Component />
+                </Sequence>
+              ) : (
+                <sc.Component />
+              )}
             </TransitionSeries.Sequence>
           </Fragment>
         );

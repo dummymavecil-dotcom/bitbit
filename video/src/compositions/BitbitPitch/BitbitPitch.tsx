@@ -3,7 +3,8 @@ import { z } from 'zod';
 import { interpolate, Sequence, staticFile, useVideoConfig } from 'remotion';
 import { ScenePlayer } from './player';
 import { SCENES } from './scenes';
-import { partRange, TOTAL_SECONDS } from './timing';
+import { ChapterBar } from './scenes/p2-p3';
+import { CUE, LEN, partRange, TOTAL_SECONDS } from './timing';
 
 export const BitbitPitchSchema = z.object({
   /** Play the music bed. */
@@ -15,8 +16,11 @@ export type BitbitPitchProps = z.infer<typeof BitbitPitchSchema>;
 
 export const BitbitPitch_SECONDS = TOTAL_SECONDS;
 
-/** Scenes that fall inside [from, to) on the whole-video timeline. */
-const scenesIn = (from: number, to: number) => SCENES.filter((s) => s.start >= from - 0.001 && s.start < to - 0.001);
+/** Scenes visible inside [from, to): the one already playing at `from`, then every scene starting before `to`. */
+const scenesIn = (from: number, to: number) => {
+  const first = Math.max(0, SCENES.filter((s) => s.start <= from + 0.001).length - 1);
+  return SCENES.slice(first).filter((s) => s.start < to - 0.001);
+};
 
 const Music: React.FC<{ duck: boolean }> = ({ duck }) => {
   const { fps, durationInFrames } = useVideoConfig();
@@ -38,6 +42,10 @@ export const BitbitPitchView: React.FC<BitbitPitchProps & { part?: number }> = (
   return (
     <>
       <ScenePlayer scenes={scenesIn(range.start, range.end)} from={range.start} to={range.end} />
+      <ChapterBar
+        show={[CUE.collect - range.start, CUE.saving + LEN.saving - range.start]}
+        changes={[CUE.feels - range.start, CUE.present - range.start]}
+      />
       {music ? <Music duck={narration} /> : null}
       {narration
         ? parts.map((p) => (

@@ -164,11 +164,10 @@ const PILLARS: { n: string; title: string; sub: string; icon: IconName; at: numb
   { n: '03', title: 'Share', sub: 'Choose who sees what, and for how long.', icon: 'contactless', at: 2.25 },
 ];
 
-export const PillarsScene: React.FC = () => {
+export const PillarsScene: React.FC<{ collectAt?: number }> = ({ collectAt = CUES.collect - CUES.pillars }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const collectAt = CUES.collect - CUES.pillars;
   const dimOthers = interpolate(t, [collectAt, collectAt + 0.6], [1, 0.3], clamp);
   const lift = progress(frame, sec(collectAt, fps), sec(0.6, fps), EASE.enter);
   return (
@@ -231,12 +230,12 @@ export const RecordScene: React.FC = () => (
 
 /* ---------- Lines 7–8 (start): what he knows, he adds himself ---------- */
 
-export const AddsScene: React.FC = () => (
+export const AddsScene: React.FC<{ chipTimes?: [number, number, number]; tagsAt?: number }> = ({ chipTimes = [2.55, 3.15, 3.8], tagsAt = CUES.reported - CUES.adds + 0.2 }) => (
   <Stage>
     <Shapes shapes={phoneShapes(0)} />
     <LeftStatement text={'What he knows,\nhe adds himself.'} kicker="FROM MEMORY" size={88} />
     <RightPhone>
-      <AddHistoryScreen chipTimes={[2.55, 3.15, 3.8]} tagsAt={CUES.reported - CUES.adds + 0.2} />
+      <AddHistoryScreen chipTimes={chipTimes} tagsAt={tagsAt} />
     </RightPhone>
   </Stage>
 );
