@@ -53,8 +53,12 @@ need a company license. See https://www.remotion.dev/license.
 ## Bitbit explainer
 
 `src/compositions/BitbitExplainer/` is the pitch explainer (Parts 1–2, Collect, about 72 s).
-Script and line lengths are in `timing.ts`; change a line's `seconds` and every cue and camera
-move follows. Panel positions and the camera path are in `layout.ts`. To add the voice-over, put the
+It is built like the BitbitIntro sample: straight full-screen scenes joined by slide and fade
+transitions, with text revealed line by line and shapes that spring in. Script and line lengths are
+in `timing.ts` (`SCRIPT`), and so are the scene start times (`SCENES`) and the transition length;
+change a line's `seconds` and every scene and transition after it moves with it. Each scene is a
+component in `shots/Part1.tsx` or `shots/Part2.tsx`; which transition brings it in is set in
+`ENTRANCE` in `BitbitExplainer.tsx`. To add the voice-over, put the
 file in `public/audio/` and set the `narration` prop in Studio (e.g. `audio/narration.mp3`); the
 music then drops under it automatically. The brief it was built from is
 `../design-prompts/bitbit-explainer-video-prompt.md`.

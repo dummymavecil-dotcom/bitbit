@@ -1,10 +1,8 @@
 import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import {
-  CutFrame,
   DischargePaper,
   Icon,
   LabPaper,
-  Logo,
   PhoneFrame,
   PrescriptionPaper,
   ProvenanceTag,
@@ -14,13 +12,11 @@ import {
 } from '../../../components';
 import { COLORS } from '../../../theme';
 import { EASE, mix, progress, sec } from '../../../utils';
-import { L } from '../layout';
 import { ScanScreen, VIEWFINDER } from '../screens/ScanScreen';
 import { SourceScreen } from '../screens/SourceScreen';
 import { IconTile } from '../screens/ui';
-import { CUES } from '../timing';
-import { Panel } from '../world';
-import { Center, Enter, Statement } from './common';
+import { BrandCard, RightPhone } from './Part1';
+import { Center, Enter, LeftStatement, phoneShapes, Shapes, Stage, Statement } from './common';
 
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 
@@ -55,19 +51,14 @@ const ScanContent: React.FC = () => {
   );
 };
 
-export const ScanShot: React.FC = () => (
-  <>
-    <Panel {...L.scanText} color={COLORS.blue600} start={CUES.scan}>
-      <Statement text={'Scan it.\nNo retyping.'} overline="PAPERS" />
-    </Panel>
-    <Panel {...L.scanPhone} start={CUES.scan}>
-      <Enter delay={0.1} rise={50} style={{ position: 'absolute', left: 450 - 214, top: 69 }}>
-        <PhoneFrame screenBg={COLORS.ink}>
-          <ScanContent />
-        </PhoneFrame>
-      </Enter>
-    </Panel>
-  </>
+export const ScanScene: React.FC = () => (
+  <Stage>
+    <Shapes shapes={phoneShapes(1)} />
+    <LeftStatement text={'Scan it.\nNo retyping.'} kicker="PAPERS" />
+    <RightPhone dark>
+      <ScanContent />
+    </RightPhone>
+  </Stage>
 );
 
 /* ---------- Line 11: AI copies what's written; Marco checks each field ---------- */
@@ -189,32 +180,29 @@ const CheckFormContent: React.FC = () => {
   );
 };
 
-export const CheckShot: React.FC = () => (
-  <>
-    <Panel {...L.checkPaper} start={CUES.check}>
+export const CheckScene: React.FC = () => (
+  <Stage>
+    <div style={{ position: 'absolute', left: 90, top: 40, width: 800, height: 1000 }}>
       <CheckPaperContent />
-    </Panel>
-    <Panel {...L.checkForm} color={COLORS.white} start={CUES.check}>
-      <CheckFormContent />
-    </Panel>
-  </>
+    </div>
+    <Enter delay={0.05} rise={40} style={{ position: 'absolute', left: 860, top: 40, width: 980, height: 1000 }}>
+      <div style={{ position: 'relative', width: 980, height: 1000, borderRadius: 36, background: COLORS.white, border: `1.5px solid ${COLORS.neutral150}` }}>
+        <CheckFormContent />
+      </div>
+    </Enter>
+  </Stage>
 );
 
 /* ---------- Line 12: the original stays attached ---------- */
 
-export const SourceShot: React.FC = () => (
-  <>
-    <Panel {...L.sourceText} color={COLORS.blue600} start={CUES.source}>
-      <Statement text={'Every fact\nkeeps its\nsource.'} overline="ORIGINAL ATTACHED" />
-    </Panel>
-    <Panel {...L.sourcePhone} start={CUES.source}>
-      <Enter delay={0.1} rise={50} style={{ position: 'absolute', left: 450 - 214, top: 69 }}>
-        <PhoneFrame>
-          <SourceScreen originalAt={0.8} scaleAt={1.9} />
-        </PhoneFrame>
-      </Enter>
-    </Panel>
-  </>
+export const SourceScene: React.FC = () => (
+  <Stage>
+    <Shapes shapes={phoneShapes(0)} />
+    <LeftStatement text={'Every fact\nkeeps its source.'} kicker="ORIGINAL ATTACHED" />
+    <RightPhone>
+      <SourceScreen originalAt={0.8} scaleAt={1.9} />
+    </RightPhone>
+  </Stage>
 );
 
 /* ---------- Line 13: prescriptions, lab results, discharge summaries ---------- */
@@ -263,7 +251,7 @@ const BatchPhone: React.FC = () => {
 const BatchList: React.FC = () => {
   const { p } = useLocal();
   return (
-    <Enter delay={0.1} rise={20} style={{ position: 'absolute', left: 640, top: 130, width: 790 }}>
+    <Enter delay={0.1} rise={20} style={{ width: 900 }}>
       <div style={{ background: COLORS.white, borderRadius: 32, border: `1.5px solid ${COLORS.neutral150}`, padding: '40px 40px 24px' }}>
         <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.03em' }}>Added to your record</div>
         <div style={{ fontSize: 24, color: COLORS.textTertiary, marginTop: 4 }}>Mga bagong record</div>
@@ -298,15 +286,18 @@ const BatchList: React.FC = () => {
   );
 };
 
-export const BatchShot: React.FC = () => (
-  <Panel {...L.batch} start={CUES.batch}>
-    <Enter delay={0.05} rise={50} style={{ position: 'absolute', left: 130, top: 78 }}>
-      <PhoneFrame scale={0.98} screenBg={COLORS.ink}>
+export const BatchScene: React.FC = () => (
+  <Stage>
+    <Shapes shapes={[{ kind: 'circle', x: 420, y: 560, size: 700, color: COLORS.blue100, delay: 0 }, { kind: 'circle', x: 760, y: 900, size: 80, color: COLORS.cyan400, delay: 0.4 }]} />
+    <Enter delay={0.05} rise={60} style={{ position: 'absolute', left: 200, top: 66 }}>
+      <PhoneFrame scale={1.1} screenBg={COLORS.ink}>
         <BatchPhone />
       </PhoneFrame>
     </Enter>
-    <BatchList />
-  </Panel>
+    <div style={{ position: 'absolute', left: 820, top: 70 }}>
+      <BatchList />
+    </div>
+  </Stage>
 );
 
 /* ---------- Line 14: each record connects to its visit ---------- */
@@ -376,58 +367,42 @@ const VisitsContent: React.FC = () => {
   );
 };
 
-export const VisitsShot: React.FC = () => (
-  <Panel {...L.visits} color={COLORS.white} start={CUES.visits}>
-    <VisitsContent />
-  </Panel>
+export const VisitsScene: React.FC = () => (
+  <Stage>
+    <div style={{ position: 'absolute', left: 110, top: 40, width: 1700, height: 1000, borderRadius: 36, background: COLORS.white, border: `1.5px solid ${COLORS.neutral150}` }}>
+      <VisitsContent />
+    </div>
+  </Stage>
 );
 
 /* ---------- Line 15: who, what, where, when ---------- */
 
 const WWWW = [
-  { word: 'Who.', label: 'PRESCRIBER', value: 'Dr. J. Santos', at: 0.2 },
-  { word: 'What.', label: 'MEDICINE', value: 'Amlodipine 5 mg, 1 tablet once daily', at: 0.85 },
-  { word: 'Where.', label: 'CLINIC', value: 'Riverside Clinic', at: 1.5 },
-  { word: 'When.', label: 'DATE', value: 'Aug 12, 2026', at: 2.15 },
+  { word: 'Who.', label: 'PRESCRIBER', value: 'Dr. J. Santos', at: 0.2, icon: 'user' as IconName },
+  { word: 'What.', label: 'MEDICINE', value: 'Amlodipine 5\u00a0mg, once daily', at: 0.85, icon: 'pill' as IconName },
+  { word: 'Where.', label: 'CLINIC', value: 'Riverside Clinic', at: 1.5, icon: 'mapPin' as IconName },
+  { word: 'When.', label: 'DATE', value: 'Aug 12, 2026', at: 2.15, icon: 'calendar' as IconName },
 ];
 
-export const WwwwShot: React.FC = () => (
-  <>
+export const WwwwScene: React.FC = () => (
+  <Stage>
     {WWWW.map((w, i) => (
-      <Panel key={w.word} {...L.wwww[i]} color={COLORS.blue600} start={CUES.wwww}>
-        <div style={{ position: 'absolute', inset: 0, padding: '84px 44px', color: COLORS.white }}>
-          <Enter delay={w.at} rise={26}>
-            <div style={{ fontSize: 100, fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 1 }}>{w.word}</div>
+      <Enter key={w.word} delay={w.at - 0.15} rise={60} style={{ position: 'absolute', left: 110 + i * 435, top: 90 }}>
+        <div style={{ position: 'relative', width: 400, height: 900, borderRadius: 36, background: COLORS.blue600, color: COLORS.white, padding: '76px 40px', boxSizing: 'border-box' }}>
+          <div style={{ fontSize: 96, fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 1 }}>{w.word}</div>
+          <Enter delay={w.at + 0.1} rise={0} scaleFrom={0.85} style={{ position: 'absolute', left: 40, top: 330, width: 128, height: 128, borderRadius: 40, background: COLORS.blue700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Icon name={w.icon} size={68} strokeWidth={2} />
           </Enter>
-          <Enter delay={w.at + 0.2} rise={14} style={{ marginTop: 380 }}>
+          <Enter delay={w.at + 0.2} rise={14} style={{ position: 'absolute', left: 40, right: 36, bottom: 90 }}>
             <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '0.14em', opacity: 0.85 }}>{w.label}</div>
             <div style={{ fontSize: 40, fontWeight: 700, marginTop: 10, lineHeight: 1.2, letterSpacing: '-0.015em' }}>{w.value}</div>
           </Enter>
         </div>
-      </Panel>
+      </Enter>
     ))}
-  </>
+  </Stage>
 );
 
 /* ---------- End card ---------- */
 
-export const EndShot: React.FC = () => {
-  const { t } = useLocal();
-  const radius = interpolate(t, [CUES.end + 0.4, CUES.end + 1.4], [36, 0], clamp);
-  return (
-    <Panel {...L.end} color={COLORS.blue600} radius={radius} start={CUES.end + 0.6}>
-      <CutFrame width={1920} height={1080} delay={0.2} duration={1.2} />
-      <Center style={{ flexDirection: 'column' }}>
-        <Enter delay={0.4} duration={0.8} rise={24}>
-          <Logo white width={640} />
-        </Enter>
-        <Enter delay={0.8} rise={18}>
-          <div style={{ fontSize: 54, fontWeight: 700, color: COLORS.white, marginTop: 48, letterSpacing: '-0.02em' }}>Your health history, in your hands.</div>
-        </Enter>
-        <Enter delay={1.1} rise={12}>
-          <div style={{ fontSize: 28, fontWeight: 700, color: COLORS.white, opacity: 0.85, marginTop: 26, letterSpacing: '0.14em' }}>COLLECT · PREPARE · SHARE</div>
-        </Enter>
-      </Center>
-    </Panel>
-  );
-};
+export const EndScene: React.FC = () => <BrandCard footer="COLLECT · PREPARE · SHARE" />;

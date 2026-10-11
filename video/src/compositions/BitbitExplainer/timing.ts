@@ -37,3 +37,40 @@ export const CUES = SCRIPT.reduce(
 );
 
 export const TOTAL_SECONDS = SCRIPT.reduce((sum, l) => sum + l.seconds, 0);
+
+/** Length of each slide/fade between scenes. Transitions overlap the end of the outgoing scene. */
+export const TRANSITION_SECONDS = 0.7;
+
+/**
+ * Scenes and when each one starts. A scene can hold more than one line (e.g. lines 4–5 share the
+ * Collect · Prepare · Share scene). The scene list drives the TransitionSeries.
+ */
+export const SCENES = [
+  { id: 'title', start: CUES.title },
+  { id: 'timer', start: CUES.timer },
+  { id: 'glance', start: CUES.glance },
+  { id: 'pillars', start: CUES.pillars },
+  { id: 'record', start: CUES.record },
+  { id: 'adds', start: CUES.adds },
+  { id: 'reported', start: CUES.reported + 1.5 },
+  { id: 'papers', start: CUES.papers },
+  { id: 'scan', start: CUES.scan },
+  { id: 'check', start: CUES.check },
+  { id: 'source', start: CUES.source },
+  { id: 'batch', start: CUES.batch },
+  { id: 'visits', start: CUES.visits },
+  { id: 'wwww', start: CUES.wwww },
+  { id: 'end', start: CUES.end },
+] as const;
+
+export type SceneId = (typeof SCENES)[number]['id'];
+
+/**
+ * Frames each TransitionSeries.Sequence lasts. Every scene but the last is extended by one
+ * transition, so each scene still starts exactly at its `start` time.
+ */
+export const sceneFrames = (fps: number): number[] =>
+  SCENES.map((s, i) => {
+    const end = i < SCENES.length - 1 ? SCENES[i + 1].start + TRANSITION_SECONDS : TOTAL_SECONDS;
+    return Math.round(end * fps) - Math.round(s.start * fps);
+  });
