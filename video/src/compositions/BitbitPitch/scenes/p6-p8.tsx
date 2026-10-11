@@ -397,10 +397,19 @@ const ROAD = [
   { n: '04', title: 'Scale', when: 'Months 9–12' },
 ];
 
+const ROAD_W = 386;
+const ROAD_GAP = 26;
+const ROAD_AT = [0.5, 1.1, 1.7, 2.3]; // when each phase lights
+
 export const ScaleScene: React.FC = () => {
-  const { p } = useLocal();
-  const hosp = useCount(1, 50, 0.4, 2.6);
+  const { p, t } = useLocal();
+  // One hospital through build, pilot and prove; the count climbs to 50 as Scale lights.
+  const hosp = interpolate(t, [ROAD_AT[3], ROAD_AT[3] + 0.9], [1, 50], { ...clamp, easing: EASE.inOut });
   const rev = p(3.4, 0.6);
+  const rail = interpolate(t, [ROAD_AT[0], ROAD_AT[1] + 0.22, ROAD_AT[2] + 0.22, ROAD_AT[3] + 0.22], [0, 1 / 3, 2 / 3, 1], { ...clamp, easing: EASE.inOut });
+  const railIn = p(0.4, 0.5);
+  const railX = 140 + ROAD_W / 2;
+  const railW = (ROAD_W + ROAD_GAP) * 3;
   return (
     <Stage>
       <Kicker text="YEAR ONE" />
@@ -408,12 +417,12 @@ export const ScaleScene: React.FC = () => {
         <div style={{ fontSize: 120, fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 1, color: COLORS.blue600, fontVariantNumeric: 'tabular-nums' }}>{Math.round(hosp)}</div>
         <div style={{ fontSize: 30, fontWeight: 700 }}>{Math.round(hosp) === 1 ? 'hospital' : 'hospitals'}</div>
       </div>
-      <div style={{ position: 'absolute', left: 140, top: 250, display: 'flex', gap: 26 }}>
+      <div style={{ position: 'absolute', left: 140, top: 250, display: 'flex', gap: ROAD_GAP }}>
         {ROAD.map((r, i) => {
-          const lit = p(0.4 + i * 0.6, 0.45, EASE.inOut);
+          const lit = p(ROAD_AT[i], 0.45, EASE.inOut);
           return (
             <Enter key={r.n} delay={0.1 + i * 0.08} rise={24}>
-              <div style={{ width: 386, height: 220, borderRadius: 28, padding: 32, boxSizing: 'border-box', background: mixHex(COLORS.white, COLORS.blue600, lit), color: mixHex(COLORS.ink, COLORS.white, lit), border: `2px solid ${mixHex(COLORS.neutral150, COLORS.blue600, lit)}` }}>
+              <div style={{ width: ROAD_W, height: 220, borderRadius: 28, padding: 32, boxSizing: 'border-box', transform: `translateY(${mix(lit, 0, -10)}px)`, background: mixHex(COLORS.white, COLORS.blue600, lit), color: mixHex(COLORS.ink, COLORS.white, lit), border: `2px solid ${mixHex(COLORS.neutral150, COLORS.blue600, lit)}` }}>
                 <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: '0.12em', opacity: 0.8 }}>
                   {r.n} · {r.when.toUpperCase()}
                 </div>
@@ -423,7 +432,31 @@ export const ScaleScene: React.FC = () => {
           );
         })}
       </div>
-      <div style={{ position: 'absolute', left: 140, top: 560, opacity: rev, transform: `translateY(${mix(rev, 30, 0)}px)` }}>
+      <div style={{ position: 'absolute', left: railX, top: 503, width: railW, height: 6, borderRadius: 3, background: COLORS.neutral150, opacity: railIn }}>
+        <div style={{ width: railW, height: 6, borderRadius: 3, background: COLORS.blue600, transformOrigin: 'left center', transform: `scaleX(${rail})` }} />
+      </div>
+      {ROAD_AT.map((at, i) => {
+        const on = p(at, 0.27, EASE.inOut);
+        return (
+          <div
+            key={at}
+            style={{
+              position: 'absolute',
+              left: railX + i * (ROAD_W + ROAD_GAP) - 14,
+              top: 492,
+              width: 28,
+              height: 28,
+              borderRadius: 14,
+              boxSizing: 'border-box',
+              opacity: railIn,
+              background: mixHex(COLORS.white, COLORS.blue600, on),
+              border: `3px solid ${mixHex(COLORS.neutral150, COLORS.blue600, on)}`,
+              transform: `scale(${mix(on, 0.85, 1)})`,
+            }}
+          />
+        );
+      })}
+      <div style={{ position: 'absolute', left: 140, top: 580, opacity: rev, transform: `translateY(${mix(rev, 30, 0)}px)` }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 30 }}>
           <div style={{ fontSize: 200, fontWeight: 800, letterSpacing: '-0.055em', lineHeight: 1, color: COLORS.blue600 }}>₱180M+</div>
           <div style={{ fontSize: 46, fontWeight: 700 }}>revenue in year one</div>
