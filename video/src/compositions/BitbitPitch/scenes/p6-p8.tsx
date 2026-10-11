@@ -1,4 +1,4 @@
-import { evolvePath } from '@remotion/paths';
+import { evolvePath, getLength, getPointAtLength } from '@remotion/paths';
 import { interpolate, random, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Icon, Logo, ScreenCrop, type IconName } from '../../../components';
 import { COLORS } from '../../../theme';
@@ -26,44 +26,116 @@ const Kicker: React.FC<{ text: string; at?: number; left?: number; top?: number;
 
 /* ---------- Lines 39–41: the ecosystem ---------- */
 
-type Node = { label: string; icon: IconName; x: number; y: number; at: number; detail?: string[]; detailAt?: number; fillAt?: number };
+type Node = { label: string; icon: IconName; x: number; y: number; at: number; detail?: string[]; detailAt?: number; fillAt?: number; focusAt?: number };
+// Symmetric layout around the hub. Times are unchanged: nodes land on line 39, details and fills on line 41.
 const NODES: Node[] = [
-  { label: 'Providers', icon: 'stethoscope', x: 360, y: 210, at: 0.7, detail: ['₱500K per integration', 'Provider view · workflow setup', 'Training · support'], detailAt: 11.4 },
-  { label: 'Health plans + insurers', icon: 'shield', x: 1560, y: 210, at: 0.9, detail: ['Sponsored access', 'Member discovery, by choice', 'Health information never sold'], detailAt: 13.2 },
-  { label: 'Enterprise partners', icon: 'file', x: 960, y: 110, at: 1.1 },
-  { label: 'Employers', icon: 'user', x: 300, y: 600, at: 1.3, fillAt: 15.6 },
-  { label: 'LGUs + public programs', icon: 'mapPin', x: 1620, y: 600, at: 1.5, fillAt: 16.1 },
+  { label: 'Providers', icon: 'stethoscope', x: 400, y: 290, at: 0.7, detail: ['₱500K per integration', 'Provider view · workflow setup', 'Training · support'], detailAt: 11.4 },
+  { label: 'Health plans + insurers', icon: 'shield', x: 1520, y: 290, at: 0.9, detail: ['Sponsored access', 'Member discovery, by choice', 'Health information never sold'], detailAt: 13.2 },
+  { label: 'Enterprise partners', icon: 'file', x: 960, y: 120, at: 1.1 },
+  { label: 'Employers', icon: 'user', x: 400, y: 660, at: 1.3, fillAt: 15.6 },
+  { label: 'LGUs + public programs', icon: 'mapPin', x: 1520, y: 660, at: 1.5, fillAt: 16.1 },
 ];
-const HUB = { x: 960, y: 440 };
+const HUB = { x: 960, y: 450, r: 112 };
+const MARCO = { x: 960, y: 760 };
+const MARCO_AT = 5.9;
+/** Curves that meet the hub from the side, like spokes bending into one record. */
+const nodePath = (n: Node) => `M ${n.x} ${n.y} Q ${(n.x + HUB.x) / 2} ${n.x === HUB.x ? (n.y + HUB.y) / 2 : HUB.y} ${HUB.x} ${HUB.y}`;
+const MARCO_PATH = `M ${HUB.x} ${HUB.y} L ${MARCO.x} ${MARCO.y}`;
+const FLOW_PERIOD = 1.8; // seconds for a dot to travel one spoke
+
+/** Small dots travelling along a path (0 → 1), looping; they fade in at the start and out at the end. */
+const Flow: React.FC<{ d: string; from: number; color?: string; count?: number; phase?: number }> = ({ d, from, color = COLORS.blue500, count = 2, phase = 0 }) => {
+  const { frame, fps, p } = useLocal();
+  const show = p(from, 0.4, EASE.inOut);
+  if (show <= 0) return null;
+  const len = getLength(d);
+  const loop = FLOW_PERIOD * fps;
+  return (
+    <>
+      {Array.from({ length: count }).map((_, i) => {
+        const raw = (frame - sec(from, fps) + phase * loop + (i * loop) / count) / loop;
+        const k = ((raw % 1) + 1) % 1;
+        const pt = getPointAtLength(d, EASE.inOut(k) * len);
+        const fade = interpolate(k, [0, 0.12, 0.85, 1], [0, 1, 1, 0], clamp);
+        return pt ? <circle key={i} cx={pt.x} cy={pt.y} r={8} fill={color} opacity={fade * show} /> : null;
+      })}
+    </>
+  );
+};
 
 export const EcosystemScene: React.FC = () => {
   const { p, frame, fps } = useLocal();
-  const marco = p(5.9, 0.6);
+  const marco = p(MARCO_AT, 0.6);
   const caption = p(7.2, 0.6);
+  const hubIn = p(0.15, 0.7);
+  // Gentle rings breathing out of the hub once it has landed.
+  const ringLoop = 2.6 * fps;
   return (
     <Stage>
+      {/* Hub rings (flat, behind everything). */}
+      <div style={{ position: 'absolute', left: HUB.x, top: HUB.y, width: 0, height: 0, opacity: hubIn }}>
+        <div style={{ position: 'absolute', left: -190, top: -190, width: 380, height: 380, borderRadius: 190, background: COLORS.blue100 }} />
+        {[0, 0.5].map((off) => {
+          const k = ((((frame - sec(0.8, fps)) / ringLoop + off) % 1) + 1) % 1;
+          const visible = frame >= sec(0.8, fps) ? 1 : 0;
+          return (
+            <div
+              key={off}
+              style={{
+                position: 'absolute',
+                left: -HUB.r,
+                top: -HUB.r,
+                width: HUB.r * 2,
+                height: HUB.r * 2,
+                borderRadius: HUB.r,
+                border: `3px solid ${COLORS.blue300}`,
+                boxSizing: 'border-box',
+                transform: `scale(${mix(EASE.enter(k), 1, 1.75)})`,
+                opacity: visible * mix(k, 0.9, 0),
+              }}
+            />
+          );
+        })}
+      </div>
       <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}>
         {NODES.map((n) => {
-          const d = `M ${n.x} ${n.y} L ${HUB.x} ${HUB.y}`;
-          const k = progress(frame, sec(n.at + 0.3, fps), sec(0.5, fps), EASE.inOut);
+          const d = nodePath(n);
+          const k = progress(frame, sec(n.at + 0.3, fps), sec(0.6, fps), EASE.inOut);
           const ev = evolvePath(k, d);
-          return <path key={n.label} d={d} stroke={COLORS.blue300} strokeWidth={4} strokeDasharray={ev.strokeDasharray} strokeDashoffset={ev.strokeDashoffset} fill="none" />;
+          const focus = Math.max(n.detailAt === undefined ? 0 : p(n.detailAt, 0.45, EASE.inOut), n.fillAt === undefined ? 0 : p(n.fillAt, 0.45, EASE.inOut));
+          return (
+            <path
+              key={n.label}
+              d={d}
+              stroke={mixHex(COLORS.blue300, COLORS.blue600, focus)}
+              strokeWidth={mix(focus, 4, 6)}
+              strokeLinecap="round"
+              strokeDasharray={ev.strokeDasharray}
+              strokeDashoffset={ev.strokeDashoffset}
+              fill="none"
+            />
+          );
         })}
         {(() => {
-          const d = `M ${HUB.x} ${HUB.y} L ${HUB.x} 700`;
-          const ev = evolvePath(p(5.8, 0.4, EASE.inOut), d);
-          return <path d={d} stroke={COLORS.blue300} strokeWidth={4} strokeDasharray={ev.strokeDasharray} strokeDashoffset={ev.strokeDashoffset} fill="none" />;
+          const ev = evolvePath(p(MARCO_AT - 0.1, 0.45, EASE.inOut), MARCO_PATH);
+          return <path d={MARCO_PATH} stroke={COLORS.blue600} strokeWidth={5} strokeLinecap="round" strokeDasharray={ev.strokeDasharray} strokeDashoffset={ev.strokeDashoffset} fill="none" />;
         })()}
+        {/* Value flowing from every player into the record… */}
+        {NODES.map((n, i) => (
+          <Flow key={n.label} d={nodePath(n)} from={n.at + 0.9} phase={i * 0.17} />
+        ))}
+        {/* …and on to Marco, at no cost to him. */}
+        <Flow d={MARCO_PATH} from={MARCO_AT + 0.4} color={COLORS.blue600} count={2} />
       </svg>
-      <Enter delay={0.15} rise={0} scaleFrom={0.8} style={{ position: 'absolute', left: HUB.x - 130, top: HUB.y - 130 }}>
-        <div style={{ width: 260, height: 260, borderRadius: 130, background: COLORS.white, border: `2px solid ${COLORS.neutral150}`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-          <Logo kind="mark" width={92} />
-          <div style={{ fontSize: 20, fontWeight: 700, color: COLORS.textSecondary }}>One patient-held record</div>
+      <Enter delay={0.15} rise={0} scaleFrom={0.8} style={{ position: 'absolute', left: HUB.x - HUB.r, top: HUB.y - HUB.r }}>
+        <div style={{ width: HUB.r * 2, height: HUB.r * 2, borderRadius: HUB.r, background: COLORS.white, border: `3px solid ${COLORS.blue600}`, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Logo kind="mark" width={118} />
         </div>
       </Enter>
       {NODES.map((n) => {
         const open = n.detailAt === undefined ? 0 : p(n.detailAt, 0.5, EASE.inOut);
         const fill = n.fillAt === undefined ? 0 : p(n.fillAt, 0.45, EASE.inOut);
+        const focus = Math.max(open, fill);
         return (
           <Enter key={n.label} delay={n.at} rise={24} style={{ position: 'absolute', left: n.x - 200, top: n.y - 50 }}>
             <div
@@ -72,9 +144,10 @@ export const EcosystemScene: React.FC = () => {
                 borderRadius: 28,
                 background: mixHex(COLORS.white, COLORS.blue600, fill),
                 color: mixHex(COLORS.ink, COLORS.white, fill),
-                border: `2px solid ${fill > 0 ? mixHex(COLORS.neutral150, COLORS.blue600, fill) : mixHex(COLORS.neutral150, COLORS.blue500, open)}`,
+                border: `2px solid ${fill > 0 ? mixHex(COLORS.blue500, COLORS.blue600, fill) : mixHex(COLORS.neutral150, COLORS.blue500, open)}`,
                 padding: '22px 26px',
                 boxSizing: 'border-box',
+                transform: `translateY(${mix(focus, 0, -8)}px)`,
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -96,16 +169,16 @@ export const EcosystemScene: React.FC = () => {
           </Enter>
         );
       })}
-      <div style={{ position: 'absolute', left: 960 - 280, top: 700, width: 560, opacity: marco, transform: `translateY(${mix(marco, 30, 0)}px)` }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 22, background: COLORS.white, borderRadius: 28, border: `2px solid ${COLORS.neutral150}`, padding: '22px 30px' }}>
-          <div style={{ width: 84, height: 84, borderRadius: 42, background: COLORS.cyan400, fontSize: 32, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>MD</div>
+      <div style={{ position: 'absolute', left: MARCO.x - 250, top: MARCO.y - 56, width: 500, opacity: marco, transform: `translateY(${mix(marco, 30, 0)}px)` }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 22, background: COLORS.white, borderRadius: 28, border: `2px solid ${COLORS.blue600}`, padding: '18px 28px' }}>
+          <div style={{ width: 76, height: 76, borderRadius: 38, background: COLORS.cyan400, fontSize: 30, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>MD</div>
           <div>
-            <div style={{ fontSize: 26, fontWeight: 700, color: COLORS.textSecondary }}>Marco pays</div>
-            <div style={{ fontSize: 76, fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: COLORS.blue600 }}>₱0</div>
+            <div style={{ fontSize: 24, fontWeight: 700, color: COLORS.textSecondary }}>Marco pays</div>
+            <div style={{ fontSize: 68, fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: COLORS.blue600 }}>₱0</div>
           </div>
         </div>
       </div>
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 920, textAlign: 'center', opacity: caption, fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em' }}>
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 930, textAlign: 'center', opacity: caption, transform: `translateY(${mix(caption, 16, 0)}px)`, fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em' }}>
         The patient is the user. <span style={{ color: COLORS.blue600 }}>The ecosystem is the customer.</span>
       </div>
     </Stage>
