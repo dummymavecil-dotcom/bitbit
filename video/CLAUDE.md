@@ -139,8 +139,11 @@ hard-coding `durationInFrames`. For a single element appearing mid-scene, use `<
 
 - Calm, smooth, **no bounce**. Use `EASE.enter` / `CALM_SPRING`; no elastic or overshooting motion.
 - White text only on `blue600` (#0070d9) or darker, never on `blue500` (#0084ff).
-- Colour jobs are exclusive: blue = actions/trust, cyan = scan/success, **yellow = Self-input only**,
+- Colour jobs are exclusive: blue = actions/trust, cyan = scan/success, **yellow = Patient-reported only**,
   **pink = allergies/destructive only**.
+- Provenance tags are exactly three, with these names: **Patient-reported** (yellow, pencil, dashed
+  border), **Document-sourced** (cyan, file icon), **Provider-reviewed** (blue, check). Never "Verified"
+  or "Self-input".
 - Health data is shown as facts with reference ranges ("6.8% · ref. below 5.7%"); never "High",
   "Normal" or advice. Allergies come first.
 - English first; Filipino as a smaller second line in `textTertiary`. No emoji.

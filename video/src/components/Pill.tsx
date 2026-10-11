@@ -16,7 +16,7 @@ const TONES: Record<NonNullable<PillProps['tone']>, CSSProperties> = {
   neutral: { background: COLORS.surface, color: COLORS.ink, border: `2px solid ${COLORS.borderSubtle}` },
 };
 
-/** Rounded label (e.g. a Verified tag, a kicker above a headline). Static: wrap in <Reveal> to animate. */
+/** Rounded label (e.g. a Provider-reviewed tag, a kicker above a headline). Static: wrap in <Reveal> to animate. */
 export const Pill: React.FC<PillProps> = ({ children, tone = 'blue', icon, style }) => {
   const s = useScale();
   return (

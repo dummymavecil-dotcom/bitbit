@@ -34,9 +34,16 @@ variant**: same file rendered white (it is single-ink, so the shape is identical
   The Allergies card never animates on its own; it arrives with its screen.
 - **Type:** Inter only (bundled). On-screen text is a short phrase per beat, never the full narration.
   English first; Filipino as a smaller grey second line where the app has one. No emoji.
-- **Tags** always show word + icon + border: Provider-reviewed (blue, check-circle),
-  Document-sourced (cyan-100 fill, cyan-700 text, file icon), Patient-reported (yellow-100 fill,
-  yellow-700 text, pencil icon, 1px **dashed** `#a07f00`). Use the long names as in the screens.
+- **Tags: exactly three, always word + icon + border, always these names** (never "Verified",
+  "Self-input", "Reviewed" or "Reported", even though some screenshots use the short forms):
+  | Tag | Meaning | Style |
+  |---|---|---|
+  | **Patient-reported** | Marco entered it from memory | yellow-100 `#fff6cc` fill, yellow-700 `#6b5400` text, pencil icon, 1px **dashed** `#a07f00` border |
+  | **Document-sourced** | Copied from a scanned paper; original attached | cyan-100 `#dcfbfa` fill, cyan-700 `#00706e` text, file icon, 1px solid `#00706e` border |
+  | **Provider-reviewed** | Entered or reviewed by a provider | blue-100 `#e5f2ff` fill, blue-700 `#005bb5` text, check-circle icon, 1px solid `#0084ff` border |
+  They form one "How sure is this?" scale, in this order: Patient-reported → Document-sourced →
+  Provider-reviewed. Build one `ProvenanceTag kind="patient" | "document" | "provider"` component
+  and use it everywhere, including on top of screenshots where a short form needs covering.
 - **Colour jobs:** blue = actions/trust, cyan = scanning/success/document-sourced,
   yellow = patient-reported only, pink = allergies only. White text only on `#0070d9` or darker.
 - **Audio:** calm music bed now; leave an `<Audio>` slot for narration. Put each line's start time
@@ -73,9 +80,9 @@ Avoid placeholder text on screen: `05-profile` shows `[PHONE]`, `07-scan-prescri
 |---|---|---|---|
 | 10 | "He scans them instead of typing it all again." | Rebuilt `07-scan-prescription` (dark navy). The Riverside Clinic prescription slides into frame; cyan corners close in; shutter press scales to 0.98 and back. | 4 |
 | 11 | "Bitbit's AI copies only what's written and sorts it into fields. Marco checks each one before it's saved." | Split view: the paper on the left, a "Check what Bitbit copied" form on the right. Each handwritten value highlights, then its field fills: **Medicine** Amlodipine 5 mg · **How to take** 1 tab once daily · **Reason written** for hypertension · **Prescriber** Dr. J. Santos · **Clinic** Riverside Clinic · **Date** Aug 12, 2026. A check appears beside each field in turn; then **Save**. Show the line "It doesn't diagnose or fill gaps." | 6 |
-| 12 | "The original stays attached, so every fact keeps its source." | Amlodipine detail: **Document-sourced** tag; source line *Copied by Bitbit from your prescription · checked by you on Sep 26, 2026*; a thumbnail of the paper pinned to the card with "View original prescription". | 5 |
-| 13 | "Prescriptions, lab results, discharge summaries: the same scan brings them all in." | Scan chips cycle **Prescription → Lab result → Discharge summary**; three papers pass the scanner, each faster than the last, and land as Document-sourced rows: *Amlodipine 5 mg · Aug 12, 2026*, *CBC + lipid panel · May 04, 2026*, *[discharge summary: hospital · date · reason]*. | 6 |
-| 14 | "Each record connects to the visit it came from." | Records timeline: lines draw from each record to its visit node: *Aug 12 · Riverside Clinic*, *May 04 · [lab]*, *Sep 18 · Rizal District Hospital triage (BP 136/86 · HR 76)*. | 5 |
+| 12 | "The original stays attached, so every fact keeps its source." | Amlodipine detail: **Document-sourced** tag; source line *Copied by Bitbit from your prescription · checked by you on Sep 26, 2026*; a thumbnail of the paper pinned to the card with "View original prescription". Below it, the "How sure is this?" scale with all three tags, the marker resting on Document-sourced. | 5 |
+| 13 | "Prescriptions, lab results, discharge summaries: the same scan brings them all in." | Scan chips cycle **Prescription → Lab result → Discharge summary**; three papers pass the scanner, each faster than the last, and land as Document-sourced rows: *Amlodipine 5 mg · Aug 12, 2026*, *CBC + lipid panel · May 04, 2026*, *Discharge summary · Rizal District Hospital · Mar 05, 2024*. | 6 |
+| 14 | "Each record connects to the visit it came from." | Records timeline: lines draw from each record to its visit node, newest first: *Sep 18, 2026 · Rizal District Hospital triage (BP 136/86 · HR 76)*, *Aug 12, 2026 · Riverside Clinic consult*, *May 04, 2026 · Riverside Clinic lab*, *Mar 03–05, 2024 · Rizal District Hospital admission*. | 5 |
 | 15 | "Who. What. Where. When." | Four blue panels land one per word, each paired with the Amlodipine record's field: **Who** Dr. J. Santos · **What** Amlodipine 5 mg, 1 tab once daily · **Where** Riverside Clinic · **When** Aug 12, 2026. Hold 1 s, then lead into Part 3 (Prepare). | 4 |
 
 ## Facts to keep consistent
@@ -86,6 +93,17 @@ Patient-reported. Medication: Amlodipine 5 mg once daily, from Riverside Clinic 
 by Dr. J. Santos, Aug 12, 2026, Document-sourced. Condition: hypertension since 2024,
 Provider-reviewed. Family history: father hypertension (45), mother type 2 diabetes (50),
 Patient-reported. Hospital: Rizal District Hospital, triage nurse J. Mendoza, Dr. A. Ramos.
+
+Created for this video (fictional, consistent with the app):
+
+- **Discharge summary** · Rizal District Hospital · admitted Mar 03, 2024, discharged Mar 05, 2024 ·
+  attending Dr. A. Ramos · reason for admission written as *Hypertensive urgency, BP 180/110 on
+  arrival* · discharge diagnosis *Hypertension* · discharged on *Losartan 50 mg, 1 tab once daily* ·
+  follow-up at OPD in 2 weeks. Document-sourced. This is where "hypertension since 2024" and the
+  Losartan (later stopped Feb 21, 2026, then Amlodipine from Aug 12, 2026) come from.
+- **Lab result** · Riverside Clinic laboratory · collected May 04, 2026 · requested by Dr. J. Santos ·
+  *CBC + lipid panel*. Document-sourced. If values appear, show them as facts with reference
+  ranges only, e.g. *LDL cholesterol · 3.9 mmol/L · ref. below 3.4*; never "High" or "Normal".
 
 ## Done when
 

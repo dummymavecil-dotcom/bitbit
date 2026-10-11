@@ -1,7 +1,7 @@
 /**
  * Bitbit brand values for video, copied from ../../design-tokens/bitbit.tokens.css.
  * Keep colour jobs exclusive, as in the app: blue = actions/trust, cyan = scan/success,
- * yellow = Self-input only, pink = allergies/destructive only.
+ * yellow = Patient-reported only, pink = allergies/destructive only.
  */
 import { loadFont } from '@remotion/fonts';
 import { staticFile } from 'remotion';
