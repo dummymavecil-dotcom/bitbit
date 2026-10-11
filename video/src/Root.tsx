@@ -52,7 +52,7 @@ export const RemotionRoot: React.FC = () => {
         {/* @new-composition (scripts/new-composition.mjs inserts compositions above this line) */}
       </Folder>
       {/* Built part by part: add part numbers here as they are finished. */}
-      <PitchPartCompositions parts={[1, 2, 3]} />
+      <PitchPartCompositions parts={[1, 2, 3, 4, 5]} />
     </>
   );
 };

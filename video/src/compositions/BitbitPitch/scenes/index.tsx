@@ -2,6 +2,7 @@ import type { PitchScene } from '../player';
 import { CUE, LEN } from '../timing';
 import { AddsScene, GlanceScene, PapersScene, PillarsScene, RecordScene, ReportedScene, TitleScene } from '../../BitbitExplainer/shots/Part1';
 import { BatchScene, CheckScene, ScanScene, SourceScene, VisitsScene, WwwwScene } from '../../BitbitExplainer/shots/Part2';
+import { ForwardScene, PartnerScene, PrepareAScene, PrepareBScene, PresentScene, ReceiveScene, SavingScene, ZeroScene } from './p4-p5';
 import { HistoryScene, ProviderReviewScene, RevealTimerScene, SourcesScene } from './p2-p3';
 import { EnvelopeScene, MathScene, MeetScene, NextScene, QueueScene, QuestionsScene, ScatteredScene, SwitchScene, ThirtyScene } from './p1-problem';
 
@@ -42,4 +43,16 @@ export const SCENES: PitchScene[] = [
   { key: 'history', start: CUE.history, enter: 'right', Component: HistoryScene },
   { key: 'review', start: CUE.history + 2.5, enter: 'fade', Component: ProviderReviewScene },
   { key: 'sources', start: CUE.sources, enter: 'right', Component: SourcesScene },
+
+  // Part 4: Prepare
+  { key: 'prepareA', start: CUE.feels, enter: 'part', Component: PrepareAScene },
+  { key: 'forward', start: CUE.forward, enter: 'right', Component: ForwardScene },
+  { key: 'prepareB', start: CUE.decides, enter: 'right', Component: PrepareBScene },
+
+  // Part 5: Share
+  { key: 'present', start: CUE.present, enter: 'part', Component: PresentScene },
+  { key: 'partner', start: CUE.partner, enter: 'right', Component: PartnerScene },
+  { key: 'receive', start: CUE.receives, enter: 'right', Component: ReceiveScene },
+  { key: 'zero', start: CUE.zero, enter: 'fade', Component: ZeroScene },
+  { key: 'saving', start: CUE.saving, enter: 'right', Component: SavingScene },
 ];
