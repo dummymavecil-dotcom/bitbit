@@ -8,6 +8,13 @@ import { EASE, mix, progress, sec } from '../../utils';
 
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 
+/** Blend two `#rrggbb` colours (t = 0 → a, 1 → b), for smooth colour changes instead of snaps. */
+export const mixHex = (a: string, b: string, t: number) => {
+  const pa = [1, 3, 5].map((i) => parseInt(a.slice(i, i + 2), 16));
+  const pb = [1, 3, 5].map((i) => parseInt(b.slice(i, i + 2), 16));
+  return `rgb(${pa.map((v, i) => Math.round(mix(t, v, pb[i]))).join(',')})`;
+};
+
 /** Colours of the "before" world (Part 1). */
 export const INK = {
   bg: COLORS.ink,

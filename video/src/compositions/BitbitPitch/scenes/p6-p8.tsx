@@ -5,7 +5,7 @@ import { COLORS } from '../../../theme';
 import { EASE, mix, progress, sec } from '../../../utils';
 import { Center, Enter, LeftStatement, phoneShapes, Shapes, Stage } from '../../BitbitExplainer/shots/common';
 import { BrandCard, RightPhone } from '../../BitbitExplainer/shots/Part1';
-import { DeskZeroSign, Timer, useCount } from '../kit';
+import { DeskZeroSign, mixHex, Timer, useCount } from '../kit';
 import { ScreenReveal } from '../screens-prepare';
 
 /* Parts 6–8: business model, scale and impact, close. Times are seconds from each scene's start. */
@@ -63,22 +63,22 @@ export const EcosystemScene: React.FC = () => {
       </Enter>
       {NODES.map((n) => {
         const open = n.detailAt === undefined ? 0 : p(n.detailAt, 0.5, EASE.inOut);
-        const fill = n.fillAt === undefined ? 0 : p(n.fillAt, 0.35, EASE.standard);
+        const fill = n.fillAt === undefined ? 0 : p(n.fillAt, 0.45, EASE.inOut);
         return (
           <Enter key={n.label} delay={n.at} rise={24} style={{ position: 'absolute', left: n.x - 200, top: n.y - 50 }}>
             <div
               style={{
                 width: 400,
                 borderRadius: 28,
-                background: fill > 0.5 ? COLORS.blue600 : COLORS.white,
-                color: fill > 0.5 ? COLORS.white : COLORS.ink,
-                border: `2px solid ${open > 0.5 ? COLORS.blue500 : COLORS.neutral150}`,
+                background: mixHex(COLORS.white, COLORS.blue600, fill),
+                color: mixHex(COLORS.ink, COLORS.white, fill),
+                border: `2px solid ${fill > 0 ? mixHex(COLORS.neutral150, COLORS.blue600, fill) : mixHex(COLORS.neutral150, COLORS.blue500, open)}`,
                 padding: '22px 26px',
                 boxSizing: 'border-box',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                <div style={{ width: 56, height: 56, borderRadius: 18, background: fill > 0.5 ? COLORS.blue700 : COLORS.blue100, color: fill > 0.5 ? COLORS.white : COLORS.blue600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 56, height: 56, borderRadius: 18, background: mixHex(COLORS.blue100, COLORS.blue700, fill), color: mixHex(COLORS.blue600, COLORS.white, fill), display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Icon name={n.icon} size={30} />
                 </div>
                 <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.1 }}>{n.label}</div>
@@ -140,26 +140,50 @@ export const AiCardScene: React.FC = () => <BrandCard footer="ALL POWERED BY AN 
 
 /* ---------- Line 44: AI organizes, providers review, patients decide ---------- */
 
+/* Each card lights in turn, on the narration: "AI organizes. / Providers review. / Patients decide what travels." */
 const STEPS: { n: string; title: string; sub: string; icon: IconName; at: number }[] = [
-  { n: '01', title: 'AI organizes', sub: 'Extract. Structure. Prepare.', icon: 'sparkle', at: 0.1 },
-  { n: '02', title: 'Sources prove', sub: 'Evidence stays attached.', icon: 'file', at: 0.9 },
-  { n: '03', title: 'Providers review', sub: 'Clinical review stays human.', icon: 'stethoscope', at: 0.9 },
-  { n: '04', title: 'Patients decide what travels', sub: 'Consent before the share.', icon: 'check', at: 1.8 },
+  { n: '01', title: 'AI organizes', sub: 'Extract. Structure. Prepare.', icon: 'sparkle', at: 0.55 },
+  { n: '02', title: 'Sources prove', sub: 'Evidence stays attached.', icon: 'file', at: 1.0 },
+  { n: '03', title: 'Providers review', sub: 'Clinical review stays human.', icon: 'stethoscope', at: 1.4 },
+  { n: '04', title: 'Patients decide what travels', sub: 'Consent before the share.', icon: 'check', at: 1.95 },
 ];
+const CARD_W = 400;
+const CARD_GAP = 30;
+const ROW_LEFT = (1920 - (CARD_W * 4 + CARD_GAP * 3)) / 2;
+const LIGHT = 0.45; // seconds for one card to change colour
 
 export const StepsScene: React.FC = () => {
-  const { p } = useLocal();
+  const { p, t } = useLocal();
+  // The rail runs from card 01's centre to card 04's centre and fills as each card lights.
+  const rail = interpolate(t, [STEPS[0].at, ...STEPS.slice(1).map((s) => s.at + LIGHT * 0.5)], [0, 1 / 3, 2 / 3, 1], { ...clamp, easing: EASE.inOut });
+  const railIn = p(0.4, 0.5);
+  const railX = ROW_LEFT + CARD_W / 2;
+  const railW = (CARD_W + CARD_GAP) * 3;
   return (
     <Stage>
-      <div style={{ position: 'absolute', left: 110, top: 220, display: 'flex', gap: 30 }}>
+      <div style={{ position: 'absolute', left: ROW_LEFT, top: 200, display: 'flex', gap: CARD_GAP }}>
         {STEPS.map((s, i) => {
-          const lit = p(s.at + (i === 2 ? 0.15 : 0), 0.35, EASE.standard);
+          const lit = p(s.at, LIGHT, EASE.inOut);
           return (
             <Enter key={s.n} delay={0.05 + i * 0.08} rise={30}>
-              <div style={{ width: 400, height: 420, borderRadius: 32, padding: 40, boxSizing: 'border-box', background: lit > 0.5 ? COLORS.blue600 : COLORS.white, color: lit > 0.5 ? COLORS.white : COLORS.ink, border: `2px solid ${lit > 0.5 ? COLORS.blue600 : COLORS.neutral150}` }}>
+              <div
+                style={{
+                  width: CARD_W,
+                  height: 420,
+                  borderRadius: 32,
+                  padding: 40,
+                  boxSizing: 'border-box',
+                  background: mixHex(COLORS.white, COLORS.blue600, lit),
+                  color: mixHex(COLORS.ink, COLORS.white, lit),
+                  border: `2px solid ${mixHex(COLORS.neutral150, COLORS.blue600, lit)}`,
+                  transform: `translateY(${mix(lit, 0, -14)}px)`,
+                }}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div style={{ fontSize: 26, fontWeight: 700, letterSpacing: '0.12em', opacity: 0.8 }}>{s.n}</div>
-                  <Icon name={s.icon} size={56} />
+                  <div style={{ color: mixHex(COLORS.blue600, COLORS.white, lit) }}>
+                    <Icon name={s.icon} size={56} />
+                  </div>
                 </div>
                 <div style={{ fontSize: 50, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1.05, marginTop: 70 }}>{s.title}</div>
                 <div style={{ fontSize: 26, fontWeight: 600, marginTop: 18, opacity: 0.85 }}>{s.sub}</div>
@@ -168,7 +192,32 @@ export const StepsScene: React.FC = () => {
           );
         })}
       </div>
-      <Enter delay={2.3} rise={14} style={{ position: 'absolute', left: 0, right: 0, top: 740, textAlign: 'center' }}>
+      {/* Progress rail with one node per card. */}
+      <div style={{ position: 'absolute', left: railX, top: 676, width: railW, height: 6, borderRadius: 3, background: COLORS.neutral150, opacity: railIn }}>
+        <div style={{ width: railW, height: 6, borderRadius: 3, background: COLORS.blue600, transformOrigin: 'left center', transform: `scaleX(${rail})` }} />
+      </div>
+      {STEPS.map((s, i) => {
+        const on = p(s.at, LIGHT * 0.6, EASE.inOut);
+        return (
+          <div
+            key={s.n}
+            style={{
+              position: 'absolute',
+              left: railX + i * (CARD_W + CARD_GAP) - 14,
+              top: 665,
+              width: 28,
+              height: 28,
+              borderRadius: 14,
+              boxSizing: 'border-box',
+              opacity: railIn,
+              background: mixHex(COLORS.white, COLORS.blue600, on),
+              border: `3px solid ${mixHex(COLORS.neutral150, COLORS.blue600, on)}`,
+              transform: `scale(${mix(on, 0.85, 1)})`,
+            }}
+          />
+        );
+      })}
+      <Enter delay={2.45} rise={14} style={{ position: 'absolute', left: 0, right: 0, top: 770, textAlign: 'center' }}>
         <div style={{ fontSize: 64, fontWeight: 800, letterSpacing: '-0.035em' }}>
           AI assists. <span style={{ color: COLORS.blue600 }}>Humans stay in control.</span>
         </div>
@@ -313,7 +362,7 @@ export const NationalIdScene: React.FC = () => {
 
 export const OneInTenScene: React.FC = () => {
   const { p } = useLocal();
-  const pick = p(1.3, 0.35, EASE.standard);
+  const pick = p(1.3, 0.45, EASE.inOut);
   const up = p(2.4, 0.6, EASE.inOut);
   const stat = p(2.7, 0.5);
   const n = useCount(0, 9.7, 2.8, 1.2);
@@ -322,7 +371,7 @@ export const OneInTenScene: React.FC = () => {
       <div style={{ position: 'absolute', left: 0, right: 0, top: mix(up, 330, 150), display: 'flex', justifyContent: 'center', gap: 34, transform: `scale(${mix(up, 1, 0.7)})` }}>
         {Array.from({ length: 10 }).map((_, i) => (
           <Enter key={i} delay={0.1 + i * 0.05} rise={20}>
-            <div style={{ color: i === 4 && pick > 0.5 ? COLORS.blue600 : COLORS.neutral300, transform: `scale(${i === 4 ? 1 + 0.15 * pick : 1})` }}>
+            <div style={{ color: i === 4 ? mixHex(COLORS.neutral300, COLORS.blue600, pick) : COLORS.neutral300, transform: `scale(${i === 4 ? 1 + 0.15 * pick : 1})` }}>
               <Icon name="user" size={130} strokeWidth={1.8} />
             </div>
           </Enter>
@@ -361,10 +410,10 @@ export const ScaleScene: React.FC = () => {
       </div>
       <div style={{ position: 'absolute', left: 140, top: 250, display: 'flex', gap: 26 }}>
         {ROAD.map((r, i) => {
-          const lit = p(0.4 + i * 0.6, 0.3, EASE.standard);
+          const lit = p(0.4 + i * 0.6, 0.45, EASE.inOut);
           return (
             <Enter key={r.n} delay={0.1 + i * 0.08} rise={24}>
-              <div style={{ width: 386, height: 220, borderRadius: 28, padding: 32, boxSizing: 'border-box', background: lit > 0.5 ? COLORS.blue600 : COLORS.white, color: lit > 0.5 ? COLORS.white : COLORS.ink, border: `2px solid ${lit > 0.5 ? COLORS.blue600 : COLORS.neutral150}` }}>
+              <div style={{ width: 386, height: 220, borderRadius: 28, padding: 32, boxSizing: 'border-box', background: mixHex(COLORS.white, COLORS.blue600, lit), color: mixHex(COLORS.ink, COLORS.white, lit), border: `2px solid ${mixHex(COLORS.neutral150, COLORS.blue600, lit)}` }}>
                 <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: '0.12em', opacity: 0.8 }}>
                   {r.n} · {r.when.toUpperCase()}
                 </div>
