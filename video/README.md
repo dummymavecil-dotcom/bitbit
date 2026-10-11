@@ -15,6 +15,7 @@ npm run render:sample   # → out/bitbit-intro.mp4 (1920×1080, 30 fps, ~15 s)
 
 | Task | Command |
 | --- | --- |
+| Render the Bitbit explainer (Parts 1–2) | `npx remotion render BitbitExplainer out/bitbit-explainer.mp4` |
 | Preview all compositions | `npm run studio` |
 | Create a composition | `npm run new -- MyVideo --seconds 10` |
 | Render a composition to MP4 | `npx remotion render MyVideo out/my-video.mp4` |
@@ -48,3 +49,12 @@ bundled under the SIL Open Font License (`public/fonts/Inter-LICENSE.txt`).
 
 Remotion is free for individuals, non-profits and companies of up to 3 people; larger companies
 need a company license. See https://www.remotion.dev/license.
+
+## Bitbit explainer
+
+`src/compositions/BitbitExplainer/` is the pitch explainer (Parts 1–2, Collect, about 72 s).
+Script and line lengths are in `timing.ts`; change a line's `seconds` and every cue and camera
+move follows. Panel positions and the camera path are in `layout.ts`. To add the voice-over, put the
+file in `public/audio/` and set the `narration` prop in Studio (e.g. `audio/narration.mp3`); the
+music then drops under it automatically. The brief it was built from is
+`../design-prompts/bitbit-explainer-video-prompt.md`.

@@ -3,6 +3,7 @@ import { BitbitIntro } from './compositions/BitbitIntro/BitbitIntro';
 import { bitbitIntroSchema } from './compositions/BitbitIntro/schema';
 import { getIntroDuration } from './compositions/BitbitIntro/timing';
 import { VIDEO } from './config/video';
+import { BitbitExplainer, BitbitExplainer_SECONDS, BitbitExplainerSchema } from './compositions/BitbitExplainer/BitbitExplainer';
 // @new-composition-imports (scripts/new-composition.mjs inserts imports above this line)
 
 /**
@@ -37,6 +38,16 @@ export const RemotionRoot: React.FC = () => {
         />
       </Folder>
       <Folder name="Projects">
+        <Composition
+          id="BitbitExplainer"
+          component={BitbitExplainer}
+          schema={BitbitExplainerSchema}
+          defaultProps={{ music: true, narration: '' }}
+          durationInFrames={Math.round(BitbitExplainer_SECONDS * VIDEO.fps)}
+          fps={VIDEO.fps}
+          width={VIDEO.width}
+          height={VIDEO.height}
+        />
         {/* @new-composition (scripts/new-composition.mjs inserts compositions above this line) */}
       </Folder>
     </>

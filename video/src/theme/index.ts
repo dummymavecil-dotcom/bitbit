@@ -31,6 +31,19 @@ export const COLORS = {
   pink700: '#a3164f',
 
   white: '#ffffff',
+
+  // Extra brand-book values used by the explainer.
+  blue300: '#b8dbff',
+  neutral100: '#e8edf5',
+  neutral150: '#e3e9f2',
+  neutral200: '#d3dbe7',
+  neutral300: '#c8d3e3',
+  neutral450: '#7c8aa0',
+  yellow400: '#fdd101',
+  yellow600: '#a07f00',
+  pink300: '#fd8fb9',
+  cyan600: '#009996',
+  paper: '#fbf9f4',
 } as const;
 
 export const RADIUS = { md: 14, lg: 20, xl: 24, xxl: 28, full: 9999 } as const;
@@ -47,6 +60,15 @@ loadFont({
   // Fail loudly in Studio; a missing font would silently render in a fallback face.
   console.error('Could not load Inter', err);
 });
+
+/** Handwriting for depicted paper documents only (prescriptions). Never for UI or titles. */
+export const HAND_FAMILY = 'Caveat';
+loadFont({
+  family: HAND_FAMILY,
+  url: staticFile('fonts/Caveat-500-latin.woff2'),
+  weight: '500',
+  format: 'woff2',
+}).catch((err) => console.error('Could not load Caveat', err));
 
 export const FONT_STACK = `${FONT_FAMILY}, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`;
 
