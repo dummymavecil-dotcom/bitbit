@@ -34,8 +34,8 @@ export const CUES: Cue[] = [
  {
   "start": 11.37,
   "end": 14.26,
-  "text": "at two to three times their capacity.",
-  "ja": "受け入れ能力の2〜3倍で運営されています。"
+  "text": "at two to three times its current capacity.",
+  "ja": "現在の受け入れ能力の2〜3倍で運営されています。"
  },
  {
   "start": 14.31,
@@ -346,8 +346,8 @@ export const CUES: Cue[] = [
  {
   "start": 136.17,
   "end": 138.03,
-  "text": "with three different sources",
-  "ja": "3つの異なる出典によって"
+  "text": "We'll have three different sources",
+  "ja": "3つの異なる出典を備え、"
  },
  {
   "start": 138.06,
@@ -358,8 +358,8 @@ export const CUES: Cue[] = [
  {
   "start": 140.4,
   "end": 142.8,
-  "text": "So when Marco feels sick,",
-  "ja": "マルコの具合が悪いときは、"
+  "text": "So that when Marco feels sick,",
+  "ja": "そうすれば、マルコの具合が悪いときも、"
  },
  {
   "start": 142.83,

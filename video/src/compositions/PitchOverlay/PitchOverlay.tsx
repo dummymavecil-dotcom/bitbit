@@ -110,6 +110,29 @@ const QrCard: React.FC<{ rows: string[]; title: string; url: string; at: number;
   );
 };
 
+/** What the name means, shown under the brand card while it holds (1:08.4–1:10.7). */
+const NAME_IN = 68.35;
+const NAME_OUT = 70.45;
+const NameNote: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const k = progress(frame, sec(NAME_IN, fps), sec(0.5, fps), EASE.enter);
+  const out = progress(frame, sec(NAME_OUT, fps), sec(0.3, fps), EASE.inOut);
+  if (k <= 0 || out >= 1) return null;
+  return (
+    <div style={{ position: 'absolute', left: 0, right: 0, top: 742, display: 'flex', justifyContent: 'center', opacity: k * (1 - out), transform: `translateY(${mix(k, 14, 0)}px)` }}>
+      <div style={{ background: COLORS.blue700, borderRadius: 22, padding: '16px 30px', color: COLORS.white, textAlign: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 14 }}>
+          <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: '-0.02em' }}>bit·bit</span>
+          <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: '0.14em', color: COLORS.cyan400 }}>FILIPINO</span>
+          <span style={{ fontSize: 30, fontWeight: 600 }}>“to carry in hand”</span>
+        </div>
+        <div style={{ fontFamily: `"${JP_FAMILY}", ${FONT_STACK}`, fontSize: 22, fontWeight: 500, color: COLORS.blue100, marginTop: 4 }}>ビットビット：手に持って運ぶ</div>
+      </div>
+    </div>
+  );
+};
+
 export const PitchOverlay: React.FC<z.infer<typeof PitchOverlaySchema>> = ({ still, captions, qr }) => (
   <AbsoluteFill style={{ fontFamily: FONT_STACK }}>
     {still ? <Img src={staticFile(still)} style={{ width: '100%', height: '100%' }} /> : null}
@@ -119,6 +142,7 @@ export const PitchOverlay: React.FC<z.infer<typeof PitchOverlaySchema>> = ({ sti
         <QrCard rows={QR_PROVIDER} title="Provider view" url="bitbit-provider.netlify.app" at={QR_AT + 0.15} style={{ right: 110, top: 790 }} />
       </>
     ) : null}
+    <NameNote />
     {captions ? <Captions /> : null}
   </AbsoluteFill>
 );
