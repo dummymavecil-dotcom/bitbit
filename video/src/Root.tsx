@@ -6,6 +6,7 @@ import { VIDEO } from './config/video';
 import { BitbitExplainer, BitbitExplainer_SECONDS, BitbitExplainerSchema } from './compositions/BitbitExplainer/BitbitExplainer';
 import { BitbitPitch, BitbitPitch_SECONDS, BitbitPitchSchema } from './compositions/BitbitPitch/BitbitPitch';
 import { PitchPartCompositions } from './compositions/BitbitPitch/parts';
+import { MarcoCard, MarcoCard_SECONDS, MarcoCardSchema } from './compositions/MarcoCard/MarcoCard';
 // @new-composition-imports (scripts/new-composition.mjs inserts imports above this line)
 
 /**
@@ -64,6 +65,17 @@ export const RemotionRoot: React.FC = () => {
         height={VIDEO.height}
       />
       <PitchPartCompositions parts={[1, 2, 3, 4, 5, 6, 7, 8]} />
+      {/* Overlay for the edited pitch (rendered transparent). */}
+      <Composition
+        id="MarcoCard"
+        component={MarcoCard}
+        schema={MarcoCardSchema}
+        defaultProps={{ still: '' }}
+        durationInFrames={Math.round(MarcoCard_SECONDS * VIDEO.fps)}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+      />
     </>
   );
 };
