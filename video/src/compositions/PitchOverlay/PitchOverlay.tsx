@@ -1,7 +1,7 @@
 import { measureText } from '@remotion/layout-utils';
 import { AbsoluteFill, Img, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { z } from 'zod';
-import { COLORS, FONT_FAMILY, FONT_STACK } from '../../theme';
+import { COLORS, FONT_FAMILY, FONT_STACK, JP_FAMILY } from '../../theme';
 import { EASE, mix, progress, sec } from '../../utils';
 import { CUES, QR_APP, QR_PROVIDER, type Cue } from './data';
 
@@ -12,11 +12,15 @@ import { CUES, QR_APP, QR_PROVIDER, type Cue } from './data';
 export const PitchOverlaySchema = z.object({ still: z.string(), captions: z.boolean(), qr: z.boolean() });
 export const PitchOverlay_SECONDS = 300;
 
-const CAP = { size: 34, weight: '600', padX: 30, padY: 14, bottom: 72 };
+const CAP = { size: 34, weight: '600', padX: 30, padY: 12, bottom: 66, jaSize: 22 };
 const QR_AT = 290.6; // the end card is settled by now
 
-const textWidth = (text: string) =>
-  measureText({ text, fontFamily: FONT_FAMILY, fontSize: CAP.size, fontWeight: CAP.weight, letterSpacing: '-0.01em' }).width;
+/** Width of a cue's widest line (English, or the smaller Japanese line under it). */
+const textWidth = (c: Cue) =>
+  Math.max(
+    measureText({ text: c.text, fontFamily: FONT_FAMILY, fontSize: CAP.size, fontWeight: CAP.weight, letterSpacing: '-0.01em' }).width,
+    measureText({ text: c.ja, fontFamily: JP_FAMILY, fontSize: CAP.jaSize, fontWeight: '500' }).width,
+  );
 
 /** Index of the cue on screen at time t, or -1. */
 const cueAt = (t: number) => CUES.findIndex((c) => t >= c.start && t < c.end);
@@ -45,8 +49,8 @@ const Captions: React.FC = () => {
   const pillIn = prevJoined ? 1 : progress(frame, sec(c.start - 0.05, fps), sec(0.2, fps), EASE.enter);
   const pillOut = nextJoined ? 0 : progress(frame, sec(c.end, fps), sec(0.18, fps), EASE.inOut);
   const textIn = progress(frame, sec(c.start, fps), sec(0.16, fps), EASE.enter);
-  const w = textWidth(c.text);
-  const fromW = prevJoined ? textWidth(CUES[i - 1].text) : w;
+  const w = textWidth(c);
+  const fromW = prevJoined ? textWidth(CUES[i - 1]) : w;
   const width = mix(progress(frame, sec(c.start, fps), sec(0.2, fps), EASE.inOut), fromW, w) + CAP.padX * 2;
   const a = pillIn * (1 - pillOut);
   return (
@@ -68,7 +72,10 @@ const Captions: React.FC = () => {
           overflow: 'hidden',
         }}
       >
-        <span style={{ display: 'inline-block', opacity: textIn, transform: `translateY(${mix(textIn, 6, 0)}px)` }}>{c.text}</span>
+        <div style={{ opacity: textIn, transform: `translateY(${mix(textIn, 6, 0)}px)` }}>
+          <div>{c.text}</div>
+          <div style={{ fontFamily: `"${JP_FAMILY}", ${FONT_STACK}`, fontSize: CAP.jaSize, fontWeight: 500, letterSpacing: 0, lineHeight: 1.35, marginTop: 3, color: COLORS.neutral300 }}>{c.ja}</div>
+        </div>
       </div>
     </div>
   );

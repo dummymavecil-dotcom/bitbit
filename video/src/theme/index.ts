@@ -70,6 +70,15 @@ loadFont({
   format: 'woff2',
 }).catch((err) => console.error('Could not load Caveat', err));
 
+/** Japanese caption line (Noto Sans JP, OFL). Only the subtitle translation uses it. */
+export const JP_FAMILY = 'Noto Sans JP';
+loadFont({
+  family: JP_FAMILY,
+  url: staticFile('fonts/NotoSansJP-500-japanese.woff2'),
+  weight: '500',
+  format: 'woff2',
+}).catch((err) => console.error('Could not load Noto Sans JP', err));
+
 export const FONT_STACK = `${FONT_FAMILY}, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`;
 
 /** Type scale in design pixels (multiply by useScale()). */
