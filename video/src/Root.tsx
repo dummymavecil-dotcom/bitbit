@@ -7,6 +7,7 @@ import { BitbitExplainer, BitbitExplainer_SECONDS, BitbitExplainerSchema } from 
 import { BitbitPitch, BitbitPitch_SECONDS, BitbitPitchSchema } from './compositions/BitbitPitch/BitbitPitch';
 import { PitchPartCompositions } from './compositions/BitbitPitch/parts';
 import { MarcoCard, MarcoCard_SECONDS, MarcoCardSchema } from './compositions/MarcoCard/MarcoCard';
+import { PitchOverlay, PitchOverlay_SECONDS, PitchOverlaySchema } from './compositions/PitchOverlay/PitchOverlay';
 // @new-composition-imports (scripts/new-composition.mjs inserts imports above this line)
 
 /**
@@ -65,6 +66,17 @@ export const RemotionRoot: React.FC = () => {
         height={VIDEO.height}
       />
       <PitchPartCompositions parts={[1, 2, 3, 4, 5, 6, 7, 8]} />
+      {/* Captions + QR codes for the final voiced pitch (rendered transparent). */}
+      <Composition
+        id="PitchOverlay"
+        component={PitchOverlay}
+        schema={PitchOverlaySchema}
+        defaultProps={{ still: '', captions: true, qr: true }}
+        durationInFrames={Math.round(PitchOverlay_SECONDS * VIDEO.fps)}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+      />
       {/* Overlay for the edited pitch (rendered transparent). */}
       <Composition
         id="MarcoCard"
