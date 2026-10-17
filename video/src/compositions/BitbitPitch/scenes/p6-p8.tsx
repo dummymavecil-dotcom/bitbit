@@ -549,34 +549,76 @@ export const ScaleScene: React.FC = () => {
 /* ---------- Line 50: year three ---------- */
 
 const BARS = [
-  { year: 'Year 1', value: '₱180M+', people: '9.7M people', h: 0.1 },
-  { year: 'Year 2', value: '₱650M', people: '25M people', h: 0.36 },
-  { year: 'Year 3', value: '₱1.8B+', people: '60M+ people', h: 1 },
+  { year: 'Year 1', value: '₱180M+', h: 0.1 },
+  { year: 'Year 2', value: '₱650M', h: 0.36 },
+  { year: 'Year 3', value: '₱1.8B+', h: 1 },
+];
+
+/** A data table in the deck style: blue header, alternating rows, an optional highlighted total row. */
+type Row = { label: string; cells: string[]; bold?: boolean; total?: boolean; italic?: boolean; small?: boolean };
+const DataTable: React.FC<{ rows: Row[]; width: number; labelWidth: number; rowH: number; font: number; at: number }> = ({ rows, width, labelWidth, rowH, font, at }) => {
+  const { p } = useLocal();
+  const head = p(at, 0.5);
+  const col = (width - labelWidth) / 3;
+  const line = `1px solid ${COLORS.blue200}`;
+  return (
+    <div style={{ width, fontSize: font, color: COLORS.ink }}>
+      <div style={{ display: 'flex', height: rowH, background: COLORS.blue600, color: COLORS.white, fontWeight: 800, letterSpacing: '0.02em', opacity: head, transform: `translateY(${mix(head, 12, 0)}px)` }}>
+        <div style={{ width: labelWidth, borderRight: line }} />
+        {['YEAR 1', 'YEAR 2', 'YEAR 3'].map((y, i) => (
+          <div key={y} style={{ width: col, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRight: i < 2 ? line : undefined }}>{y}</div>
+        ))}
+      </div>
+      {rows.map((r, i) => {
+        const k = p(at + 0.12 + i * 0.07, 0.45);
+        const h = r.small ? rowH * 1.45 : rowH;
+        const bg = r.total ? COLORS.blue600 : i % 2 === 0 ? COLORS.white : COLORS.blue100;
+        return (
+          <div key={r.label} style={{ display: 'flex', height: h, background: bg, color: r.total ? COLORS.white : COLORS.ink, fontWeight: r.bold || r.total ? 800 : 500, fontStyle: r.italic ? 'italic' : undefined, borderBottom: line, borderLeft: line, borderRight: line, opacity: k, transform: `translateY(${mix(k, 10, 0)}px)` }}>
+            <div style={{ width: labelWidth, boxSizing: 'border-box', padding: '0 18px', display: 'flex', alignItems: 'center', fontWeight: r.total || r.bold ? 800 : 700, fontSize: r.total ? font * 1.15 : font, borderRight: line }}>{r.label}</div>
+            {r.cells.map((c, j) => (
+              <div key={j} style={{ width: col, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', whiteSpace: 'pre-line', lineHeight: 1.15, fontSize: r.small ? font * 0.82 : r.total ? font * 1.1 : font, borderRight: j < 2 ? line : undefined }}>{c}</div>
+            ))}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const REVENUE_ROWS: Row[] = [
+  { label: 'People with access', cells: ['9.7M', '25M', '60M+'] },
+  { label: 'Provider facilities', cells: ['50', '250', '750+'] },
+  { label: 'Markets', cells: ['Philippines', 'Philippines +\nfirst regional market', 'Philippines +\nmultiple Asian markets'], small: true },
+  { label: 'Sponsored access', cells: ['₱140M', '₱400M', '₱960M'] },
+  { label: 'Provider platform', cells: ['₱25M', '₱125M', '₱375M'] },
+  { label: 'Implementation + integration', cells: ['₱22.5M', '₱125M', '~₱465M'] },
+  { label: 'Total revenue', cells: ['₱187.5M', '₱650M', '~₱1.8B'], total: true },
 ];
 
 export const Year3Scene: React.FC = () => {
   const { p } = useLocal();
-  const base = 860;
-  const maxH = 560;
+  const base = 535;
+  const maxH = 330;
   return (
     <Stage>
       <Kicker text="BY YEAR THREE" />
-      <div style={{ position: 'absolute', left: 140, top: base, width: 1640, height: 3, background: COLORS.neutral300 }} />
+      <div style={{ position: 'absolute', left: 300, top: base, width: 1320, height: 3, background: COLORS.neutral300 }} />
       {BARS.map((b, i) => {
         const g = p(0.3 + i * 0.5, 0.9, EASE.inOut);
         const h = Math.max(8, maxH * b.h * g);
-        const x = 300 + i * 500;
+        const x = 450 + i * 400;
         return (
           <div key={b.year}>
-            <div style={{ position: 'absolute', left: x, top: base - h, width: 280, height: h, borderRadius: '20px 20px 0 0', background: i === 2 ? COLORS.blue600 : COLORS.blue300 }} />
-            <div style={{ position: 'absolute', left: x - 60, width: 400, top: base - h - 100, textAlign: 'center', opacity: p(0.6 + i * 0.5, 0.4), fontSize: 72, fontWeight: 800, letterSpacing: '-0.04em', color: i === 2 ? COLORS.blue600 : COLORS.ink }}>{b.value}</div>
-            <div style={{ position: 'absolute', left: x - 60, width: 400, top: base + 22, textAlign: 'center', opacity: p(0.3 + i * 0.5, 0.4) }}>
-              <div style={{ fontSize: 32, fontWeight: 800 }}>{b.year}</div>
-              <div style={{ fontSize: 26, color: COLORS.textSecondary, marginTop: 4 }}>{b.people}</div>
-            </div>
+            <div style={{ position: 'absolute', left: x, top: base - h, width: 220, height: h, borderRadius: '18px 18px 0 0', background: i === 2 ? COLORS.blue600 : COLORS.blue300 }} />
+            <div style={{ position: 'absolute', left: x - 90, width: 400, top: base - h - 82, textAlign: 'center', opacity: p(0.6 + i * 0.5, 0.4), fontSize: 60, fontWeight: 800, letterSpacing: '-0.04em', color: i === 2 ? COLORS.blue600 : COLORS.ink }}>{b.value}</div>
+            <div style={{ position: 'absolute', left: x - 90, width: 400, top: base + 14, textAlign: 'center', opacity: p(0.3 + i * 0.5, 0.4), fontSize: 28, fontWeight: 800 }}>{b.year}</div>
           </div>
         );
       })}
+      <div style={{ position: 'absolute', left: 410, top: 612 }}>
+        <DataTable rows={REVENUE_ROWS} width={1100} labelWidth={350} rowH={33} font={19} at={1.2} />
+      </div>
       <Enter delay={2.4} rise={8} style={{ position: 'absolute', right: 140, bottom: 34 }}>
         <div style={{ fontSize: 20, color: COLORS.textTertiary }}>Illustrative model, not a forecast. Assumptions to be validated in the pilot.</div>
       </Enter>
@@ -592,6 +634,15 @@ const PLACES = [
   { name: 'Vietnam', verb: 'Expand', x: 1590, at: 1.5 },
 ];
 
+const PNL_ROWS: Row[] = [
+  { label: 'Revenue', cells: ['187.5', '650', '1,800'] },
+  { label: 'Cost of delivery', cells: ['(48)', '(178)', '(546)'] },
+  { label: 'Gross profit', cells: ['139.5', '472', '1,254'], bold: true },
+  { label: 'Operating expenses', cells: ['(175)', '(415)', '(920)'] },
+  { label: 'EBITDA', cells: ['(35.5)', '57', '334'], total: true },
+  { label: 'Margin', cells: ['\u221219%', '9%', '19%'], italic: true },
+];
+
 export const CountriesScene: React.FC = () => {
   const { p } = useLocal();
   return (
@@ -600,24 +651,27 @@ export const CountriesScene: React.FC = () => {
         {[0, 1].map((i) => {
           const a = PLACES[i];
           const b = PLACES[i + 1];
-          const d = `M ${a.x + 150} 430 Q ${(a.x + b.x) / 2} 250 ${b.x - 150} 430`;
+          const d = `M ${a.x + 150} 260 Q ${(a.x + b.x) / 2} 80 ${b.x - 150} 260`;
           const ev = evolvePath(p(b.at - 0.5, 0.6, EASE.inOut), d);
           return <path key={i} d={d} fill="none" stroke={COLORS.blue300} strokeWidth={5} strokeLinecap="round" strokeDasharray={ev.strokeDasharray} strokeDashoffset={ev.strokeDashoffset} />;
         })}
       </svg>
       {PLACES.map((pl, i) => (
-        <Enter key={pl.name} delay={pl.at} rise={24} style={{ position: 'absolute', left: pl.x - 220, top: 380 }}>
+        <Enter key={pl.name} delay={pl.at} rise={24} style={{ position: 'absolute', left: pl.x - 220, top: 210 }}>
           <div style={{ width: 440, borderRadius: 32, padding: '30px 36px', boxSizing: 'border-box', background: i === 0 ? COLORS.blue600 : COLORS.white, color: i === 0 ? COLORS.white : COLORS.ink, border: `2px solid ${i === 0 ? COLORS.blue600 : COLORS.neutral150}`, textAlign: 'center' }}>
             <div style={{ fontSize: 26, fontWeight: 700, letterSpacing: '0.12em', opacity: 0.85 }}>0{i + 1} · {pl.verb.toUpperCase()}</div>
             <div style={{ fontSize: 58, fontWeight: 800, letterSpacing: '-0.035em', marginTop: 6 }}>{pl.name}</div>
           </div>
         </Enter>
       ))}
-      <Enter delay={2.0} rise={14} style={{ position: 'absolute', left: 0, right: 0, top: 700, textAlign: 'center' }}>
-        <div style={{ fontSize: 56, fontWeight: 800, letterSpacing: '-0.03em' }}>
+      <Enter delay={2.0} rise={14} style={{ position: 'absolute', left: 0, right: 0, top: 425, textAlign: 'center' }}>
+        <div style={{ fontSize: 52, fontWeight: 800, letterSpacing: '-0.03em' }}>
           The patient moves. <span style={{ color: COLORS.blue600 }}>Their history should too.</span>
         </div>
       </Enter>
+      <div style={{ position: 'absolute', left: 312, top: 540 }}>
+        <DataTable rows={PNL_ROWS} width={1296} labelWidth={390} rowH={46} font={22} at={1.0} />
+      </div>
     </Stage>
   );
 };
