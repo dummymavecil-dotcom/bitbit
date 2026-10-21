@@ -1,0 +1,224 @@
+/* Sofisha Paint Center design tokens. Light (cream) theme on :root, dark (midnight) via prefers-color-scheme or [data-theme="dark"]. */
+/* Fonts: https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap */
+:root {
+  /* Color: palette (sampled from the logo files, or derived for contrast) */
+  --spectrum-green: #92b521;
+  --spectrum-yellow: #f9cf05;
+  --spectrum-orange: #f7851a;
+  --spectrum-orange-deep: #f97502;
+  --spectrum-red: #e21e30;
+  --spectrum-magenta: #a32468;
+  --spectrum-blue: #016dad;
+  --spectrum-cyan: #029bd0;
+  --spectrum-maroon: #741125;
+  --neutral-0: #ffffff;
+  --neutral-50: #fff6e9;
+  --neutral-100: #f6eada;
+  --neutral-200: #e9ddd1;
+  --neutral-300: #d1c9c1;
+  --neutral-400: #b9b3cc;
+  --neutral-450: #a39cb3;
+  --neutral-500: #8e8a9e;
+  --neutral-550: #7a7494;
+  --neutral-600: #6b6585;
+  --neutral-700: #5f5a75;
+  --neutral-750: #3d3563;
+  --neutral-800: #352f55;
+  --neutral-850: #2c2550;
+  --neutral-900: #221c40;
+  --neutral-950: #17103a;
+  --neutral-1000: #0b002a;
+  --red-600: #c8182a;
+  --orange-700: #a84c08;
+  --green-700: #4f6b12;
+  --cyan-700: #01729a;
+  --red-300: #ff6b75;
+  --magenta-300: #e06aa5;
+  --blue-300: #5db8e8;
+  --green-300: #b5d44a;
+  --orange-300: #ffb54d;
+  --yellow-600: #e0b800;
+  --green-50: #eef5dc;
+  --yellow-50: #fff0c2;
+  --red-50: #fce4e4;
+  --blue-50: #e1eef8;
+  --green-950: #1c2412;
+  --orange-950: #2e1d0c;
+  --red-950: #2e0f1d;
+  --blue-950: #0e1d3a;
+
+  --gradient-spectrum: linear-gradient(90deg, #92b521 0%, #f9cf05 22%, #f7851a 40%, #e21e30 58%, #a32468 74%, #016dad 90%, #029bd0 100%);
+
+  /* Color: roles */
+  --color-primary: var(--neutral-900);
+  --color-primary-hover: var(--neutral-800);
+  --color-primary-pressed: var(--neutral-1000);
+  --color-on-primary: var(--neutral-50);
+  --color-secondary: var(--spectrum-blue);
+  --color-on-secondary: var(--neutral-0);
+  --color-accent: var(--spectrum-yellow);
+  --color-accent-pressed: var(--yellow-600);
+  --color-on-accent: var(--neutral-900);
+  --category-automotive: var(--spectrum-magenta);
+  --category-building: var(--spectrum-blue);
+  --bg: var(--neutral-50);
+  --surface: var(--neutral-0);
+  --surface-raised: var(--neutral-0);
+  --border: var(--neutral-200);
+  --border-strong: var(--neutral-500);
+  --focus-ring: var(--spectrum-blue);
+  --text-primary: var(--neutral-900);
+  --text-secondary: var(--neutral-700);
+  --text-disabled: var(--neutral-450);
+  --text-inverse: var(--neutral-50);
+  --text-link: var(--spectrum-blue);
+  --text-on-brand: var(--neutral-50);
+  --success: var(--green-700);
+  --success-subtle: var(--green-50);
+  --warning: var(--orange-700);
+  --warning-subtle: var(--yellow-50);
+  --error: var(--red-600);
+  --error-subtle: var(--red-50);
+  --info: var(--spectrum-blue);
+  --info-subtle: var(--blue-50);
+  --overlay: rgba(11, 0, 42, 0.64);
+
+  /* Type */
+  --font-display: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* Spacing (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --screen-margin-mobile: 16px;
+  --screen-margin-tablet: 24px;
+  --screen-margin-desktop: 32px;
+  --content-max-width: 1200px;
+  --card-padding: 16px;
+  --card-padding-lg: 24px;
+  --gap-inline: 8px;
+  --gap-chips: 12px;
+  --gap-cards: 16px;
+  --gap-section: 32px;
+  --touch-target-min: 44px;
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-0: none;
+  --shadow-1: 0 1px 2px rgba(34, 28, 64, 0.08), 0 1px 3px rgba(34, 28, 64, 0.06);
+  --shadow-2: 0 4px 12px rgba(34, 28, 64, 0.12);
+  --shadow-3: 0 12px 32px rgba(34, 28, 64, 0.18);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-primary: var(--neutral-50);
+    --color-primary-hover: var(--neutral-100);
+    --color-primary-pressed: var(--neutral-200);
+    --color-on-primary: var(--neutral-900);
+    --color-secondary: var(--blue-300);
+    --color-on-secondary: var(--neutral-1000);
+    --color-accent: var(--spectrum-yellow);
+    --color-accent-pressed: var(--yellow-600);
+    --color-on-accent: var(--neutral-900);
+    --category-automotive: var(--magenta-300);
+    --category-building: var(--blue-300);
+    --bg: var(--neutral-1000);
+    --surface: var(--neutral-950);
+    --surface-raised: var(--neutral-900);
+    --border: var(--neutral-750);
+    --border-strong: var(--neutral-550);
+    --focus-ring: var(--blue-300);
+    --text-primary: var(--neutral-50);
+    --text-secondary: var(--neutral-400);
+    --text-disabled: var(--neutral-600);
+    --text-inverse: var(--neutral-900);
+    --text-link: var(--blue-300);
+    --text-on-brand: var(--neutral-900);
+    --success: var(--green-300);
+    --success-subtle: var(--green-950);
+    --warning: var(--orange-300);
+    --warning-subtle: var(--orange-950);
+    --error: var(--red-300);
+    --error-subtle: var(--red-950);
+    --info: var(--blue-300);
+    --info-subtle: var(--blue-950);
+    --overlay: rgba(0, 0, 0, 0.72);
+    --shadow-0: none;
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.40);
+    --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.50);
+    --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.60);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-primary: var(--neutral-50);
+  --color-primary-hover: var(--neutral-100);
+  --color-primary-pressed: var(--neutral-200);
+  --color-on-primary: var(--neutral-900);
+  --color-secondary: var(--blue-300);
+  --color-on-secondary: var(--neutral-1000);
+  --color-accent: var(--spectrum-yellow);
+  --color-accent-pressed: var(--yellow-600);
+  --color-on-accent: var(--neutral-900);
+  --category-automotive: var(--magenta-300);
+  --category-building: var(--blue-300);
+  --bg: var(--neutral-1000);
+  --surface: var(--neutral-950);
+  --surface-raised: var(--neutral-900);
+  --border: var(--neutral-750);
+  --border-strong: var(--neutral-550);
+  --focus-ring: var(--blue-300);
+  --text-primary: var(--neutral-50);
+  --text-secondary: var(--neutral-400);
+  --text-disabled: var(--neutral-600);
+  --text-inverse: var(--neutral-900);
+  --text-link: var(--blue-300);
+  --text-on-brand: var(--neutral-900);
+  --success: var(--green-300);
+  --success-subtle: var(--green-950);
+  --warning: var(--orange-300);
+  --warning-subtle: var(--orange-950);
+  --error: var(--red-300);
+  --error-subtle: var(--red-950);
+  --info: var(--blue-300);
+  --info-subtle: var(--blue-950);
+  --overlay: rgba(0, 0, 0, 0.72);
+  --shadow-0: none;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.50);
+  --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.60);
+  color-scheme: dark;
+}
+
+/* Type styles */
+.text-display { font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 800; letter-spacing: -0.01em; }
+.text-heading-lg { font-family: var(--font-display); font-size: 28px; line-height: 34px; font-weight: 800; letter-spacing: -0.005em; }
+.text-heading-md { font-family: var(--font-display); font-size: 22px; line-height: 28px; font-weight: 700; letter-spacing: 0; }
+.text-heading-sm { font-family: var(--font-display); font-size: 18px; line-height: 24px; font-weight: 700; letter-spacing: 0; }
+.text-eyebrow { font-family: var(--font-display); font-size: 12px; line-height: 16px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.text-body-lg { font-family: var(--font-body); font-size: 18px; line-height: 28px; font-weight: 400; letter-spacing: 0; }
+.text-body { font-family: var(--font-body); font-size: 16px; line-height: 24px; font-weight: 400; letter-spacing: 0; }
+.text-body-sm { font-family: var(--font-body); font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: 0; }
+.text-label { font-family: var(--font-display); font-size: 15px; line-height: 20px; font-weight: 700; letter-spacing: 0.01em; }
+.text-caption { font-family: var(--font-body); font-size: 12px; line-height: 16px; font-weight: 400; letter-spacing: 0.01em; }
+.text-code { font-family: var(--font-mono); font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0; }
+.text-price { font-family: var(--font-display); font-size: 18px; line-height: 24px; font-weight: 800; letter-spacing: 0; font-variant-numeric: tabular-nums; }

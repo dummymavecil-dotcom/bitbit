@@ -1,0 +1,545 @@
+{
+  "$schema": "sofisha-tokens/1",
+  "name": "Sofisha Paint Center",
+  "color": {
+    "palette": {
+      "spectrum-green": "#92b521",
+      "spectrum-yellow": "#f9cf05",
+      "spectrum-orange": "#f7851a",
+      "spectrum-orange-deep": "#f97502",
+      "spectrum-red": "#e21e30",
+      "spectrum-magenta": "#a32468",
+      "spectrum-blue": "#016dad",
+      "spectrum-cyan": "#029bd0",
+      "spectrum-maroon": "#741125",
+      "neutral-0": "#ffffff",
+      "neutral-50": "#fff6e9",
+      "neutral-100": "#f6eada",
+      "neutral-200": "#e9ddd1",
+      "neutral-300": "#d1c9c1",
+      "neutral-400": "#b9b3cc",
+      "neutral-450": "#a39cb3",
+      "neutral-500": "#8e8a9e",
+      "neutral-550": "#7a7494",
+      "neutral-600": "#6b6585",
+      "neutral-700": "#5f5a75",
+      "neutral-750": "#3d3563",
+      "neutral-800": "#352f55",
+      "neutral-850": "#2c2550",
+      "neutral-900": "#221c40",
+      "neutral-950": "#17103a",
+      "neutral-1000": "#0b002a",
+      "red-600": "#c8182a",
+      "orange-700": "#a84c08",
+      "green-700": "#4f6b12",
+      "cyan-700": "#01729a",
+      "red-300": "#ff6b75",
+      "magenta-300": "#e06aa5",
+      "blue-300": "#5db8e8",
+      "green-300": "#b5d44a",
+      "orange-300": "#ffb54d",
+      "yellow-600": "#e0b800",
+      "green-50": "#eef5dc",
+      "yellow-50": "#fff0c2",
+      "red-50": "#fce4e4",
+      "blue-50": "#e1eef8",
+      "green-950": "#1c2412",
+      "orange-950": "#2e1d0c",
+      "red-950": "#2e0f1d",
+      "blue-950": "#0e1d3a"
+    },
+    "gradient": {
+      "spectrum": "linear-gradient(90deg, #92b521 0%, #f9cf05 22%, #f7851a 40%, #e21e30 58%, #a32468 74%, #016dad 90%, #029bd0 100%)"
+    },
+    "role": {
+      "color-primary": {
+        "light": {
+          "ref": "neutral-900",
+          "value": "#221c40"
+        },
+        "dark": {
+          "ref": "neutral-50",
+          "value": "#fff6e9"
+        }
+      },
+      "color-primary-hover": {
+        "light": {
+          "ref": "neutral-800",
+          "value": "#352f55"
+        },
+        "dark": {
+          "ref": "neutral-100",
+          "value": "#f6eada"
+        }
+      },
+      "color-primary-pressed": {
+        "light": {
+          "ref": "neutral-1000",
+          "value": "#0b002a"
+        },
+        "dark": {
+          "ref": "neutral-200",
+          "value": "#e9ddd1"
+        }
+      },
+      "color-on-primary": {
+        "light": {
+          "ref": "neutral-50",
+          "value": "#fff6e9"
+        },
+        "dark": {
+          "ref": "neutral-900",
+          "value": "#221c40"
+        }
+      },
+      "color-secondary": {
+        "light": {
+          "ref": "spectrum-blue",
+          "value": "#016dad"
+        },
+        "dark": {
+          "ref": "blue-300",
+          "value": "#5db8e8"
+        }
+      },
+      "color-on-secondary": {
+        "light": {
+          "ref": "neutral-0",
+          "value": "#ffffff"
+        },
+        "dark": {
+          "ref": "neutral-1000",
+          "value": "#0b002a"
+        }
+      },
+      "color-accent": {
+        "light": {
+          "ref": "spectrum-yellow",
+          "value": "#f9cf05"
+        },
+        "dark": {
+          "ref": "spectrum-yellow",
+          "value": "#f9cf05"
+        }
+      },
+      "color-accent-pressed": {
+        "light": {
+          "ref": "yellow-600",
+          "value": "#e0b800"
+        },
+        "dark": {
+          "ref": "yellow-600",
+          "value": "#e0b800"
+        }
+      },
+      "color-on-accent": {
+        "light": {
+          "ref": "neutral-900",
+          "value": "#221c40"
+        },
+        "dark": {
+          "ref": "neutral-900",
+          "value": "#221c40"
+        }
+      },
+      "category-automotive": {
+        "light": {
+          "ref": "spectrum-magenta",
+          "value": "#a32468"
+        },
+        "dark": {
+          "ref": "magenta-300",
+          "value": "#e06aa5"
+        }
+      },
+      "category-building": {
+        "light": {
+          "ref": "spectrum-blue",
+          "value": "#016dad"
+        },
+        "dark": {
+          "ref": "blue-300",
+          "value": "#5db8e8"
+        }
+      },
+      "bg": {
+        "light": {
+          "ref": "neutral-50",
+          "value": "#fff6e9"
+        },
+        "dark": {
+          "ref": "neutral-1000",
+          "value": "#0b002a"
+        }
+      },
+      "surface": {
+        "light": {
+          "ref": "neutral-0",
+          "value": "#ffffff"
+        },
+        "dark": {
+          "ref": "neutral-950",
+          "value": "#17103a"
+        }
+      },
+      "surface-raised": {
+        "light": {
+          "ref": "neutral-0",
+          "value": "#ffffff"
+        },
+        "dark": {
+          "ref": "neutral-900",
+          "value": "#221c40"
+        }
+      },
+      "border": {
+        "light": {
+          "ref": "neutral-200",
+          "value": "#e9ddd1"
+        },
+        "dark": {
+          "ref": "neutral-750",
+          "value": "#3d3563"
+        }
+      },
+      "border-strong": {
+        "light": {
+          "ref": "neutral-500",
+          "value": "#8e8a9e"
+        },
+        "dark": {
+          "ref": "neutral-550",
+          "value": "#7a7494"
+        }
+      },
+      "focus-ring": {
+        "light": {
+          "ref": "spectrum-blue",
+          "value": "#016dad"
+        },
+        "dark": {
+          "ref": "blue-300",
+          "value": "#5db8e8"
+        }
+      },
+      "text-primary": {
+        "light": {
+          "ref": "neutral-900",
+          "value": "#221c40"
+        },
+        "dark": {
+          "ref": "neutral-50",
+          "value": "#fff6e9"
+        }
+      },
+      "text-secondary": {
+        "light": {
+          "ref": "neutral-700",
+          "value": "#5f5a75"
+        },
+        "dark": {
+          "ref": "neutral-400",
+          "value": "#b9b3cc"
+        }
+      },
+      "text-disabled": {
+        "light": {
+          "ref": "neutral-450",
+          "value": "#a39cb3"
+        },
+        "dark": {
+          "ref": "neutral-600",
+          "value": "#6b6585"
+        }
+      },
+      "text-inverse": {
+        "light": {
+          "ref": "neutral-50",
+          "value": "#fff6e9"
+        },
+        "dark": {
+          "ref": "neutral-900",
+          "value": "#221c40"
+        }
+      },
+      "text-link": {
+        "light": {
+          "ref": "spectrum-blue",
+          "value": "#016dad"
+        },
+        "dark": {
+          "ref": "blue-300",
+          "value": "#5db8e8"
+        }
+      },
+      "text-on-brand": {
+        "light": {
+          "ref": "neutral-50",
+          "value": "#fff6e9"
+        },
+        "dark": {
+          "ref": "neutral-900",
+          "value": "#221c40"
+        }
+      },
+      "success": {
+        "light": {
+          "ref": "green-700",
+          "value": "#4f6b12"
+        },
+        "dark": {
+          "ref": "green-300",
+          "value": "#b5d44a"
+        }
+      },
+      "success-subtle": {
+        "light": {
+          "ref": "green-50",
+          "value": "#eef5dc"
+        },
+        "dark": {
+          "ref": "green-950",
+          "value": "#1c2412"
+        }
+      },
+      "warning": {
+        "light": {
+          "ref": "orange-700",
+          "value": "#a84c08"
+        },
+        "dark": {
+          "ref": "orange-300",
+          "value": "#ffb54d"
+        }
+      },
+      "warning-subtle": {
+        "light": {
+          "ref": "yellow-50",
+          "value": "#fff0c2"
+        },
+        "dark": {
+          "ref": "orange-950",
+          "value": "#2e1d0c"
+        }
+      },
+      "error": {
+        "light": {
+          "ref": "red-600",
+          "value": "#c8182a"
+        },
+        "dark": {
+          "ref": "red-300",
+          "value": "#ff6b75"
+        }
+      },
+      "error-subtle": {
+        "light": {
+          "ref": "red-50",
+          "value": "#fce4e4"
+        },
+        "dark": {
+          "ref": "red-950",
+          "value": "#2e0f1d"
+        }
+      },
+      "info": {
+        "light": {
+          "ref": "spectrum-blue",
+          "value": "#016dad"
+        },
+        "dark": {
+          "ref": "blue-300",
+          "value": "#5db8e8"
+        }
+      },
+      "info-subtle": {
+        "light": {
+          "ref": "blue-50",
+          "value": "#e1eef8"
+        },
+        "dark": {
+          "ref": "blue-950",
+          "value": "#0e1d3a"
+        }
+      },
+      "overlay": {
+        "light": {
+          "value": "rgba(11, 0, 42, 0.64)"
+        },
+        "dark": {
+          "value": "rgba(0, 0, 0, 0.72)"
+        }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "display": "\"Montserrat\", \"Helvetica Neue\", Arial, sans-serif",
+      "body": "\"Source Sans 3\", \"Segoe UI\", Roboto, Arial, sans-serif",
+      "mono": "\"IBM Plex Mono\", ui-monospace, Menlo, Consolas, monospace"
+    },
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap"
+  },
+  "typography": {
+    "display": {
+      "family": "display",
+      "fontSize": "40px",
+      "lineHeight": "44px",
+      "fontWeight": 800,
+      "letterSpacing": "-0.01em",
+      "status": "proposed",
+      "usage": "Promo banners and the home hero. One per screen."
+    },
+    "heading-lg": {
+      "family": "display",
+      "fontSize": "28px",
+      "lineHeight": "34px",
+      "fontWeight": 800,
+      "letterSpacing": "-0.005em",
+      "status": "proposed",
+      "usage": "Screen titles."
+    },
+    "heading-md": {
+      "family": "display",
+      "fontSize": "22px",
+      "lineHeight": "28px",
+      "fontWeight": 700,
+      "letterSpacing": "0",
+      "status": "proposed",
+      "usage": "Section titles, product name on detail."
+    },
+    "heading-sm": {
+      "family": "display",
+      "fontSize": "18px",
+      "lineHeight": "24px",
+      "fontWeight": 700,
+      "letterSpacing": "0",
+      "status": "proposed",
+      "usage": "Card titles."
+    },
+    "eyebrow": {
+      "family": "display",
+      "fontSize": "12px",
+      "lineHeight": "16px",
+      "fontWeight": 800,
+      "letterSpacing": "0.08em",
+      "textTransform": "uppercase",
+      "status": "as used",
+      "usage": "Category labels above titles. Same face, weight and caps as PAINT CENTER in the lockup."
+    },
+    "body-lg": {
+      "family": "body",
+      "fontSize": "18px",
+      "lineHeight": "28px",
+      "fontWeight": 400,
+      "letterSpacing": "0",
+      "status": "proposed",
+      "usage": "Intro paragraphs."
+    },
+    "body": {
+      "family": "body",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": 400,
+      "letterSpacing": "0",
+      "status": "proposed",
+      "usage": "Default running text."
+    },
+    "body-sm": {
+      "family": "body",
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "fontWeight": 400,
+      "letterSpacing": "0",
+      "status": "proposed",
+      "usage": "Card meta: size, finish, stock."
+    },
+    "label": {
+      "family": "display",
+      "fontSize": "15px",
+      "lineHeight": "20px",
+      "fontWeight": 700,
+      "letterSpacing": "0.01em",
+      "status": "proposed",
+      "usage": "Buttons and chips."
+    },
+    "caption": {
+      "family": "body",
+      "fontSize": "12px",
+      "lineHeight": "16px",
+      "fontWeight": 400,
+      "letterSpacing": "0.01em",
+      "status": "proposed",
+      "usage": "Helper text, timestamps."
+    },
+    "code": {
+      "family": "mono",
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "fontWeight": 500,
+      "letterSpacing": "0",
+      "status": "proposed",
+      "usage": "Paint codes and mix formulas."
+    },
+    "price": {
+      "family": "display",
+      "fontSize": "18px",
+      "lineHeight": "24px",
+      "fontWeight": 800,
+      "letterSpacing": "0",
+      "status": "proposed",
+      "usage": "Prices in PHP, tabular figures."
+    }
+  },
+  "space": {
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px",
+    "16": "64px"
+  },
+  "layout": {
+    "screen-margin-mobile": "16px",
+    "screen-margin-tablet": "24px",
+    "screen-margin-desktop": "32px",
+    "content-max-width": "1200px",
+    "card-padding": "16px",
+    "card-padding-lg": "24px",
+    "gap-inline": "8px",
+    "gap-chips": "12px",
+    "gap-cards": "16px",
+    "gap-section": "32px",
+    "touch-target-min": "44px"
+  },
+  "radius": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "24px",
+    "pill": "999px"
+  },
+  "shadow": {
+    "0": {
+      "light": "none",
+      "dark": "none"
+    },
+    "1": {
+      "light": "0 1px 2px rgba(34, 28, 64, 0.08), 0 1px 3px rgba(34, 28, 64, 0.06)",
+      "dark": "0 1px 2px rgba(0, 0, 0, 0.40)"
+    },
+    "2": {
+      "light": "0 4px 12px rgba(34, 28, 64, 0.12)",
+      "dark": "0 4px 12px rgba(0, 0, 0, 0.50)"
+    },
+    "3": {
+      "light": "0 12px 32px rgba(34, 28, 64, 0.18)",
+      "dark": "0 12px 32px rgba(0, 0, 0, 0.60)"
+    }
+  }
+}

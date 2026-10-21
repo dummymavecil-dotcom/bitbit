@@ -11,3 +11,10 @@ Load Inter from Google Fonts:
 `https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..700&display=swap`
 
 Motion tokens (`--duration-*`, `--ease-*`, `--scale-*`, `--transition-*`) follow the rule "smooth, calm, no bounce". Under `prefers-reduced-motion: reduce`, every duration drops to 0ms and `--scale-pressed` becomes 1.
+
+## Sofisha Paint Center
+
+- `sofisha.tokens.css`: Sofisha tokens as CSS custom properties. Light (cream) on `:root`, dark (midnight) under `prefers-color-scheme` and `[data-theme="dark"]`, plus `.text-<style>` classes.
+- `sofisha.tokens.json`: the same tokens as nested JSON. `color.role.*` keeps each role's palette `ref` and resolved `value` per theme.
+
+Palette values come from the Sofisha logo files. Derived steps (`red-600`, `orange-700`, `green-700`, `cyan-700`, the `*-300` dark tints) fix WCAG AA failures, and every type, spacing, radius and shadow value is proposed.
